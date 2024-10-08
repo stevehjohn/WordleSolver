@@ -76,7 +76,7 @@ public class WordList
                     break;
                 }
                 
-                if (available.Length > i && available[i] != ' ' && ! word.Contains(available[i]))
+                if (available.Length > i && ! word.Contains(available[i]))
                 {
                     valid = false;
                     
