@@ -6,17 +6,21 @@ public class WordList
 
     internal int WordCount => _words.Count;
     
-    public WordList(WordSet wordSet)
+    private readonly int _length;
+    
+    public WordList(WordSet wordSet, int length = 5)
     {
         var words = File.ReadAllLines(wordSet == WordSet.Comprehensive ? "Resources/words.txt" :  "Resources/english-words.txt");
 
         var list = new List<string>();
+
+        _length = length;
         
         foreach (var word in words)
         {
             var lower = word.ToLower();
             
-            if (lower.Length == 5)
+            if (lower.Length == _length)
             {
                 var valid = true;
                 
@@ -60,9 +64,9 @@ public class WordList
         {
             var valid = true;
             
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < _length; i++)
             {
-                if (correct.Length > i && correct[i] != ' ' && correct[i] != word[i])
+                if (correct.Length > i && char.IsLetter(correct[i]) && correct[i] != word[i])
                 {
                     valid = false;
                     
@@ -87,9 +91,16 @@ public class WordList
         
         foreach (var match in matches)
         {
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < _length; i++)
             {
-                if (incorrect.Length > i && ! match.Contains(incorrect[i]))
+                if (incorrect.Length > i && char.IsLetter(incorrect[i]) && incorrect[i] == match[i])
+                {
+                    remove.Add(match);
+                    
+                    break;
+                }
+
+                if (incorrect.Length > i && char.IsLetter(incorrect[i]) && ! match.Contains(incorrect[i]))
                 {
                     remove.Add(match);
                     
