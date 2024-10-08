@@ -13,7 +13,7 @@ public class WordListTests
     }
 
     [Theory]
-    //[InlineData("plan ", "plane,plang,plans,plant")]
+    [InlineData("plan ", "plana,plane,plang,plank,plano,plans,plant")]
     [InlineData(" lan ", "alana,aland,alane,alang,alani,alano,alans,alant,blanc,bland,blane,blank,clang,clank,clans,elana,eland,elane,elans,flane,flang,flank,flann,flans,gland,glans,ilana,klans,llano,oland,plana,plane,plang,plank,plano,plans,plant,slane,slang,slank,slant,ulana,ulane,ulani,ulans")]
     public void ReturnsExpectedMatchesForCorrectLetters(string correct, string expected)
     {
