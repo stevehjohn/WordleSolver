@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using WordleSolver.Infrastructure;
 using static System.Console;
 
 namespace WordleSolver.Console;
 
+[ExcludeFromCodeCoverage]
 public static class EntryPoint
 {
     private static readonly WordList WordList = new(WordSet.Basic);
