@@ -51,7 +51,7 @@ public class ConsoleApplication
         
         OutputLine("When entering correctly or placed letters,");
         
-        OutputLine("separate with hypens to indicate the position.", false);
+        OutputLine("separate with hyphens to indicate the position.", false);
 
         OutputLine("E.g. at the prompt:");
         
