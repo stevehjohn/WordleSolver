@@ -34,13 +34,26 @@ public class WordList
         }
     }
 
-    public List<string> GetMatches(string correct, string available)
+    public HashSet<string> GetMatches(string correct, string available)
     {
-        var matches = new List<string>();
+        var matches = new HashSet<string>();
 
         foreach (var word in _words)
         {
+            var valid = true;
             
+            for (var i = 0; i < 5; i++)
+            {
+                if (correct[i] != ' ' && correct[i] != word[i])
+                {
+                    valid = false;
+                }
+            }
+
+            if (valid)
+            {
+                matches.Add(word);
+            }
         }
         
         return matches;
