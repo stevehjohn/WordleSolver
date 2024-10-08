@@ -5,7 +5,7 @@ namespace WordleSolver.Console;
 
 public class ConsoleApplication
 {
-    private readonly WordList _wordList = new(WordSet.Basic);
+    private readonly Solver _solver = new(WordSet.Basic);
     
     public void Run()
     {
@@ -40,7 +40,7 @@ public class ConsoleApplication
         
         OutputLine("Suggestions:");
 
-        var result = _wordList.GetMatches(correct, incorrect, excluded).Take(10);
+        var result = _solver.GetMatches(correct, incorrect, excluded).Take(10);
         
         OutputLine($"{string.Join(", ", result)}");
     }

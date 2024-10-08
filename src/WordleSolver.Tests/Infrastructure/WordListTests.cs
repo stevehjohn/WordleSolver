@@ -4,12 +4,12 @@ namespace WordleSolver.Tests.Infrastructure;
 
 public class WordListTests
 {
-    private readonly WordList _wordList = new(WordSet.Basic);
+    private readonly Solver _solver = new(WordSet.Basic);
     
     [Fact]
     public void LoadsExpectedWords()
     {
-        Assert.Equal(4715, _wordList.WordCount);
+        Assert.Equal(4715, _solver.WordCount);
     }
 
     [Theory]
@@ -17,7 +17,7 @@ public class WordListTests
     [InlineData(" lan", "blanc,bland,blank,clang,clank,clans,eland,flank,gland,llano,plane,plank,plano,plans,plant,slang,slant")]
     public void ReturnsExpectedMatchesForCorrectLetters(string correct, string expected)
     {
-        var result = _wordList.GetMatches(correct, null, null);
+        var result = _solver.GetMatches(correct, null, null);
 
         var list = expected.Split(',');
         
@@ -34,7 +34,7 @@ public class WordListTests
     [InlineData(" oin", "j", "coins,doing,going,loins,point")]
     public void ReturnsExpectedMatchesForCorrectLettersWithExclusions(string correct, string exclusions, string expected)
     {
-        var result = _wordList.GetMatches(correct, null, exclusions);
+        var result = _solver.GetMatches(correct, null, exclusions);
 
         var list = expected.Split(',');
         
@@ -51,7 +51,7 @@ public class WordListTests
     [InlineData(" oin", "t", "joint,point")]
     public void ReturnsExpectedMatchesForCorrectLettersWithAvailable(string correct, string incorrect, string expected)
     {
-        var result = _wordList.GetMatches(correct, incorrect, null);
+        var result = _solver.GetMatches(correct, incorrect, null);
 
         var list = expected.Split(',');
         
@@ -72,7 +72,7 @@ public class WordListTests
     [InlineData("-oi-t", "", "audbgfs", "joint,point")]
     public void SimulateRealGameProgression(string correct, string incorrect, string excluded, string expected)
     {
-        var result = _wordList.GetMatches(correct, incorrect, excluded);
+        var result = _solver.GetMatches(correct, incorrect, excluded);
 
         var list = expected.Split(',');
         
