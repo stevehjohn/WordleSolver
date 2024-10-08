@@ -4,15 +4,32 @@ public class WordList
 {
     private readonly List<string> _words = new();
 
+    internal int WordCount => _words.Count;
+    
     public WordList()
     {
-        var words = File.ReadAllLines("Resources/english-words.txt");
+        var words = File.ReadAllLines("Resources/words.txt");
 
         foreach (var word in words)
         {
             if (word.Length == 5)
             {
-                _words.Add(word);
+                var valid = true;
+                
+                foreach (var character in word)
+                {
+                    if (! char.IsLower(character))
+                    {
+                        valid = false;
+                        
+                        break;
+                    }
+                }
+
+                if (valid)
+                {
+                    _words.Add(word);
+                }
             }
         }
     }

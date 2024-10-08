@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleSolver", "WordleSolver\WordleSolver.csproj", "{E8927445-3CEF-4D21-A195-8505C8231866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WrodleSolver.Tests", "WrodleSolver.Tests\WrodleSolver.Tests.csproj", "{E8BF9B2B-99E7-4191-A005-0DAE171730C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleSolver.Tests", "WordleSolver.Tests\WordleSolver.Tests.csproj", "{E8BF9B2B-99E7-4191-A005-0DAE171730C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
