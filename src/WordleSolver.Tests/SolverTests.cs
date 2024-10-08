@@ -5,7 +5,13 @@ namespace WordleSolver.Tests;
 public class SolverTests
 {
     private readonly Solver _solver = new(WordSet.Basic);
-    
+
+    [Fact]
+    public void FindsTheCorrectNumberOfWords()
+    {
+        Assert.Equal(4715, _solver.WordCount);
+    }
+
     [Fact]
     public void ReturnsExpectedWordsGivenConditions01()
     {
