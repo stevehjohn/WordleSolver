@@ -6,9 +6,13 @@ namespace WordleSolver.Console;
 public class ConsoleApplication
 {
     private readonly Solver _solver = new(WordSet.Basic);
+
+    private ConsoleColor _previousColour;
     
     public void Run()
     {
+        _previousColour = ForegroundColor;
+        
         ShowWelcome();
 
         while (true)
@@ -21,9 +25,36 @@ public class ConsoleApplication
                 }
             }
             
-            OutputLine("Menu");
+            Menu();
         }
         // ReSharper disable once FunctionNeverReturns
+    }
+
+    private void Menu()
+    {
+        OutputLine("Select:");
+        
+        OutputLine("1: Reset game.", false);
+        OutputLine("2: Quit.", false);
+        
+        Output("> ");
+
+        var input = ReadLine();
+
+        switch (input)
+        {
+            case "1":
+                _solver.Reset();
+                break;
+            
+            case "2":
+                OutputLine("Thank you for using Wordle Solver. Bye.");
+                OutputLine();
+                ForegroundColor = _previousColour;
+                Environment.Exit(0);
+                
+                break;
+        }
     }
 
     private bool ExecuteRound()
@@ -97,6 +128,8 @@ public class ConsoleApplication
 
     private static void ShowWelcome()
     {
+        ForegroundColor = ConsoleColor.Cyan;
+        
         OutputLine("Welcome to Wordle Solver!");
         
         OutputLine("When entering correctly or incorrectly placed letters,");
