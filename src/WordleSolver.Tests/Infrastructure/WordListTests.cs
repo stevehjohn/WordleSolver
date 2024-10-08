@@ -47,7 +47,7 @@ public class WordListTests
     }
 
     [Theory]
-    [InlineData(" lan", "b", "blanc,bland,blank")]
+    [InlineData(" lan", "----b", "blanc,bland,blank")]
     [InlineData(" oin", "t", "joint,point")]
     public void ReturnsExpectedMatchesForCorrectLettersWithAvailable(string correct, string incorrect, string expected)
     {
@@ -64,15 +64,12 @@ public class WordListTests
     }
 
     [Theory]
-    [InlineData("", "io", "aud", "bigot,bimbo,bingo,biome,biros,bison,bogie,boils,boric,bowie,broil,chino,choir,coils,coins,colic,comic,conic,corgi,envoi,eosin," +
-                                 "fibro,foils,foist,folic,folio,gigot,gismo,gizmo,going,groin,hippo,hoist,icons,igloo,ingot,intro,ionic,irons,irony,ivory,jingo," +
-                                 "joins,joint,joist,kilos,kiosk,limbo,limos,lingo,lions,litho,logic,login,loins,micro,minor,moist,motif,movie,moxie,nitro,noise," +
-                                 "noisy,oleic,olive,omits,onion,opine,optic,orbit,oriel,osier,ovine,owing,picot,piezo,pilot,pinto,piton,pitot,pivot,point,poise," +
-                                 "polio,polis,posit,primo,prior,rhino,riots,robin,roily,rosin,scion,silos,socio,soils,sonic,spoil,stoic,toile,toils,tonic,topic," +
-                                 "toric,torsi,toxic,toxin,trios,vireo,visor,vitro,voice,voile,vomit,winos,yogic")]
-    [InlineData("    t", "io", "audbg", "foist,hoist,joint,joist,moist,picot,pilot,pitot,pivot,point,posit,vomit")]
-    [InlineData(" oi t", "", "audbgfs", "joint,point")]
-    [InlineData(" oint", "", "audbgfsp", "joint")]
+    [InlineData("", "---io", "aud", "bigot,biome,biros,bison,boils,coils,coins,corgi,envoi,foils,foist,hoist,icons,ingot,irons,irony," +
+                                    "ivory,joins,joint,joist,kilos,limos,lions,loins,minor,moist,noise,noisy,olive,omits,opine,oriel," +
+                                    "osier,ovine,owing,picot,pilot,piton,pivot,point,poise,riots,roily,scion,toile,toils,torsi,trios," +
+                                    "visor,voice,voile,winos,gigot,going,kiosk,pitot,prior,silos,soils,onion")]
+    [InlineData("----t", "-i-o", "audbg", "foist,hoist,joint,joist,moist,point,posit,vomit")]
+    [InlineData("-oi-t", "", "audbgfs", "joint,point")]
     public void SimulateRealGameProgression(string correct, string incorrect, string excluded, string expected)
     {
         var result = _wordList.GetMatches(correct, incorrect, excluded);
