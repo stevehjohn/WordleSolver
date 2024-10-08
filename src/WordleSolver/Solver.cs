@@ -13,10 +13,14 @@ public class Solver
     private readonly List<Tile> _incorrect = [];
 
     private readonly List<char> _excluded = [];
+
+    private readonly int _length;
     
     public Solver(WordSet wordSet, int length = 5)
     {
         _wordList = new WordList(wordSet, length);
+
+        _length = length;
 
         Reset();
     }
@@ -73,6 +77,45 @@ public class Solver
         }
         
         return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m).ToHashSet();
+    }
+
+    public void DumpState()
+    {
+        var colour = Console.ForegroundColor;
+        
+        Console.ForegroundColor = ConsoleColor.Green;
+                
+        for (var i = 0; i < _length; i++)
+        {
+            if (_correct.Any(t => t.Position == i))
+            {
+                Console.Write(_correct.Single(t => t.Position == i).Character);
+                
+                continue;
+            }
+            
+            Console.Write(" ");
+        }
+
+        Console.Write("  ");
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        
+        foreach (var tile in _incorrect.DistinctBy(t => t.Character))
+        {
+            Console.Write($"{tile.Character} ");
+        }
+
+        Console.Write(" ");
+
+        Console.ForegroundColor = ConsoleColor.Gray;
+        
+        foreach (var letter in _excluded.Distinct())
+        {
+            Console.Write($"{letter} ");
+        }
+
+        Console.ForegroundColor = colour;
     }
 
     private bool CheckCorrect(string word)

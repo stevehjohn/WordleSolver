@@ -23,6 +23,14 @@ public class ConsoleApplication
                 {
                     break;
                 }
+                
+                WriteLine();
+                
+                Write("  ");
+
+                _solver.DumpState();
+                
+                WriteLine();
             }
             
             Menu();
