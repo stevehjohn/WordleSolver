@@ -20,13 +20,13 @@ public class ConsoleApplication
 
     private void ExecuteRound()
     {
-        OutputLine("Enter any correctly placed letters separated by spaces or dots:");
+        OutputLine("Enter correctly placed letters:");
         
         Output("> ");
 
         var correct = ReadLine();
 
-        OutputLine("Enter any incorrectly placed letters:");
+        OutputLine("Enter incorrectly placed letters:");
         
         Output("> ");
 
