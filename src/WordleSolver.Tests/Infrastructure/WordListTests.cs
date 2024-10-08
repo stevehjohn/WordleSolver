@@ -67,6 +67,7 @@ public class WordListTests
     [InlineData("", "io", "aud", "bigot,bimbo,bingo,biome,biros,bison,bogie,boils,boric,bowie,broil,chino,choir,coils,coins,colic,comic,conic,corgi,envoi,eosin,fibro,foils,foist,folic,folio,gigot,gismo,gizmo,going,groin,hippo,hoist,icons,igloo,ingot,intro,ionic,irons,irony,ivory,jingo,joins,joint,joist,kilos,kiosk,limbo,limos,lingo,lions,litho,logic,login,loins,micro,minor,moist,motif,movie,moxie,nitro,noise,noisy,oleic,olive,omits,onion,opine,optic,orbit,oriel,osier,ovine,owing,picot,piezo,pilot,pinto,piton,pitot,pivot,point,poise,polio,polis,posit,primo,prior,rhino,riots,robin,roily,rosin,scion,silos,socio,soils,sonic,spoil,stoic,toile,toils,tonic,topic,toric,torsi,toxic,toxin,trios,vireo,visor,vitro,voice,voile,vomit,winos,yogic")]
     [InlineData("    t", "io", "audbg", "foist,hoist,joint,joist,moist,picot,pilot,pitot,pivot,point,posit,vomit")]
     [InlineData(" oi t", "", "audbgfs", "joint,point")]
+    [InlineData(" oint", "", "audbgfsp", "joint")]
     public void SimulateRealGameProgression(string correct, string available, string excluded, string expected)
     {
         var result = _wordList.GetMatches(correct, available, excluded);
