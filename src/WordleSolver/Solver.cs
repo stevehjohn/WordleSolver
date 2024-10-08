@@ -10,7 +10,7 @@ public class Solver
 
     private readonly int _length;
 
-    private char[] _correct;
+    private List<Tile> _correct = [];
 
     private List<Tile> _incorrect = [];
 
@@ -27,7 +27,7 @@ public class Solver
 
     public void SetCorrect(char letter, int position)
     {
-        _correct[position] = letter;
+        _correct.Add(new Tile(letter, position));
     }
 
     public void AddIncorrect(char letter, int position)
@@ -42,7 +42,7 @@ public class Solver
 
     public void Reset()
     {
-        _correct = new char[_length];
+        _correct.Clear();
         
         _incorrect.Clear();
         
@@ -53,7 +53,66 @@ public class Solver
     {
         var matches = new HashSet<string>();
 
+        foreach (var word in _wordList.Words)
+        {
+            if (! CheckCorrect(word))
+            {
+                continue;
+            }
+            
+            if (! CheckIncorrect(word))
+            {
+                continue;
+            }
+
+            if (! CheckExcluded(word))
+            {
+                continue;
+            }
+
+            matches.Add(word);
+        }
+        
         return matches;
+    }
+
+    private bool CheckCorrect(string word)
+    {
+        foreach (var tile in _correct)
+        {
+            if (word[tile.Position] != tile.Character)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool CheckIncorrect(string word)
+    {
+        foreach (var tile in _incorrect)
+        {
+            if (word[tile.Position] == tile.Character)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool CheckExcluded(string word)
+    {
+        foreach (var letter in _excluded)
+        {
+            if (word.Contains(letter))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public HashSet<string> GetMatches(string correct, string incorrect, string excluded)
