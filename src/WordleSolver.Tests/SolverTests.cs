@@ -133,4 +133,41 @@ public class SolverTests
         
         Assert.Equal("viola", string.Join(',', result));
     }
+    
+    [Fact]
+    public void ReturnsExpectedWordsGivenConditions05()
+    {
+        _solver.Reset();
+        
+        _solver.SetCorrect('i', 3);
+        _solver.AddExcluded('a');
+        _solver.AddExcluded('u');
+        _solver.AddExcluded('d');
+        _solver.AddExcluded('o');
+
+        var result = _solver.GetMatches();
+        
+        Assert.Equal("befit,begin,cylix,elfin,ethic,helix,legit,lenis,lexis,lyric,merit,mycin,penis,peril,pewit,refit,rejig,relic,remit," +
+                     "remix,resin,scrim,scrip,serif,sheik,skein,split,sprig,sprit,stein,strip,their,xeric,belie,civil,cynic,eyrie,eyrir," +
+                     "finis,genie,genii,infix,kiwis,licit,limit,lxvii,minis,petit,pixie,ricin,vigil,visit,xcvii,civic,eerie,immix,mimic," +
+                     "minim,pipit,xviii,xxvii,xxxiv,xxiii,xxxii,xxxix", string.Join(',', result));
+        
+        _solver.AddIncorrect('e', 1);
+        _solver.AddIncorrect('t', 4);
+        _solver.AddExcluded('b');
+        _solver.AddExcluded('f');
+
+        result = _solver.GetMatches();
+        
+        Assert.Equal("ethic,stein,their", string.Join(',', result));
+        
+        _solver.AddIncorrect('e', 0);
+        _solver.AddIncorrect('t', 1);
+        _solver.AddIncorrect('h', 2);
+        _solver.AddExcluded('c');
+
+        result = _solver.GetMatches();
+        
+        Assert.Equal("their", string.Join(',', result));
+    }
 }
