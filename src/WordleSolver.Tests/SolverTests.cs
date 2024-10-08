@@ -92,11 +92,11 @@ public class SolverTests
 
         var result = _solver.GetMatches();
         
-        Assert.Equal("baits,baize,briar,cacti,cairn,china,cigar,circa,fails,faint,fairs,fairy,faith,fiats,final,firma,friar,gaily,gains," +
-                     "gaits,giant,hails,hairs,hairy,ihram,ileac,iliac,image,inane,inapt,infra,inlay,intra,irate,jails,khaki,lairs,laity," +
-                     "lanai,liana,liars,lilac,liras,mails,maims,mains,maize,minas,nails,naive,pails,pains,paint,pairs,phial,pieta,pilaf," +
-                     "pizza,prima,rabbi,rails,rains,rainy,raise,rival,riyal,sails,saint,sigma,sisal,sitar,swami,taiga,tails,taint,tarsi," +
-                     "tiara,titan,triac,trial,vials,vicar,villa,viral,visas,vista,vitae,vital,wails,waist,waits,waive,wirra,witan", string.Join(',', result));
+        Assert.Equal("baits,baize,cairn,china,cigar,fails,faint,fairs,fairy,faith,fiats,final,firma,gaily,gains,gaits,giant,hails,hairs," +
+                     "hairy,ihram,ileac,image,inapt,infra,inlay,intra,irate,jails,lairs,laity,liars,liras,mails,mains,maize,minas,nails," +
+                     "naive,pails,pains,paint,pairs,phial,pieta,pilaf,prima,rails,rains,rainy,raise,rival,riyal,saint,sigma,sitar,swami," +
+                     "tails,tarsi,triac,trial,vials,vicar,viral,vista,vitae,vital,wails,waist,waits,waive,witan,briar,cacti,circa,friar," +
+                     "iliac,inane,khaki,lanai,liana,lilac,maims,pizza,rabbi,sails,sisal,taiga,taint,tiara,titan,villa,visas,wirra", string.Join(',', result));
         
         _solver.SetCorrect('a', 1);
         _solver.SetCorrect('i', 2);
@@ -122,7 +122,7 @@ public class SolverTests
 
         var result = _solver.GetMatches();
         
-        Assert.Equal("biota,china,circa,infra,intra,liana,pizza,taiga,tiara,villa,viola,vista,voila,wirra", string.Join(',', result));
+        Assert.Equal("biota,china,infra,intra,viola,vista,voila,circa,liana,pizza,taiga,tiara,villa,wirra", string.Join(',', result));
         
         _solver.SetCorrect('i', 1);
         _solver.SetCorrect('o', 2);
