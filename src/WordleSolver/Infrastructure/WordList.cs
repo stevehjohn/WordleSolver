@@ -4,7 +4,7 @@ public class WordList
 {
     private const string Empty = "     ";
     
-    private readonly List<string> _words = new();
+    private readonly List<string> _words;
 
     internal int WordCount => _words.Count;
     
@@ -12,6 +12,8 @@ public class WordList
     {
         var words = File.ReadAllLines(wordSet == WordSet.Comprehensive ? "Resources/words.txt" :  "Resources/english-words.txt");
 
+        var list = new List<string>();
+        
         foreach (var word in words)
         {
             var lower = word.ToLower();
@@ -32,10 +34,12 @@ public class WordList
 
                 if (valid)
                 {
-                    _words.Add(lower);
+                    list.Add(lower);
                 }
             }
         }
+
+        _words = list.Order().ToList();
     }
 
     public HashSet<string> GetMatches(string correct, string available, string excluded)
@@ -73,7 +77,7 @@ public class WordList
                     
                     break;
                 }
-
+                
                 if (available[i] != ' ' && ! word.Contains(available[i]))
                 {
                     valid = false;

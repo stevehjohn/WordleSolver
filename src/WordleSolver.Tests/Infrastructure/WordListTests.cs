@@ -30,12 +30,30 @@ public class WordListTests
     }
 
     [Theory]
-    [InlineData("plan ", "gt", "plane,plans")]
+    [InlineData("plan ", "gt", "plana,plane,plank,plano,plans")]
     public void ReturnsExpectedMatchesForCorrectLettersWithExclusions(string correct, string exclusions, string expected)
     {
         var result = _wordList.GetMatches(correct, null, exclusions);
 
         var list = expected.Split(',');
+        
+        Assert.Equal(list.Length, result.Count);
+
+        foreach (var item in list)
+        {
+            Assert.Contains(item, result);
+        }
+    }
+
+    [Theory]
+    [InlineData(" lan ", "bce", "blanc,bland,blane,blank")]
+    public void ReturnsExpectedMatchesForCorrectLettersWithAvailable(string correct, string available, string expected)
+    {
+        var result = _wordList.GetMatches(correct, available, null);
+
+        var list = expected.Split(',');
+        
+        Assert.Equal(list.Length, result.Count);
 
         foreach (var item in list)
         {
