@@ -19,10 +19,10 @@ public class SolverTests
 
         var result = _solver.GetMatches();
         
-        Assert.Equal("bigot,biome,biros,bison,boils,coils,coins,corgi,envoi,foils,foist,gigot,going,hoist,icons,ingot,irons,irony,ivory," +
-                     "joins,joint,joist,kilos,kiosk,limos,lions,loins,minor,moist,noise,noisy,olive,omits,onion,opine,oriel,osier,ovine," +
-                     "owing,picot,pilot,piton,pitot,pivot,point,poise,prior,riots,roily,scion,silos,soils,toile,toils,torsi,trios,visor," +
-                     "voice,voile,winos", string.Join(',', result));
+        Assert.Equal("bigot,biome,biros,bison,boils,coils,coins,corgi,envoi,foils,foist,hoist,icons,ingot,irons,irony,ivory,joins,joint," +
+                     "joist,kilos,limos,lions,loins,minor,moist,noise,noisy,olive,omits,opine,oriel,osier,ovine,owing,picot,pilot,piton," +
+                     "pivot,point,poise,riots,roily,scion,toile,toils,torsi,trios,visor,voice,voile,winos,gigot,going,kiosk,pitot,prior," +
+                     "silos,soils,onion", string.Join(',', result));
         
         _solver.SetCorrect('t', 4);
         _solver.AddIncorrect('i', 1);
@@ -57,14 +57,14 @@ public class SolverTests
 
         var result = _solver.GetMatches();
         
-        Assert.Equal("bacon,baron,baton,bloat,boast,boats,bolas,borax,boyar,cabob,canoe,canon,capon,carob,carol,carom,chaos,cloak,coach," +
-                     "coals,coast,coats,cobra,cocoa,colza,comas,comma,conga,copal,copra,coral,cotta,croak,fanon,float,flora,foals,foams," +
-                     "foamy,focal,foray,forma,fovea,gator,gloat,goals,goats,goral,groan,groat,halos,havoc,hoary,horal,jabot,kabob,kapok," +
-                     "koala,loach,loafs,loamy,loans,loath,lobar,local,loran,loyal,major,manor,mason,mayor,moans,moats,mocha,molar,momma," +
-                     "moral,moray,nabob,novae,novas,oaken,oases,oaten,oaths,ocean,octal,offal,okays,omega,opals,opera,orals,orate,organ," +
-                     "ovals,ovary,ovate,poach,polar,polka,poppa,rayon,razor,roach,roams,roars,roast,royal,sabot,salon,shoal,shoat,soaks," +
-                     "soaps,soapy,soars,sofas,solar,sonar,stoat,stoma,tabor,tacos,talon,taros,tarot,toast,tonal,topaz,total,vocal,wagon," +
-                     "woman,yapok,zonal", string.Join(',', result));
+        Assert.Equal("bacon,baron,baton,bloat,boast,boats,bolas,borax,boyar,canoe,capon,carob,carol,carom,chaos,cloak,coals,coast,coats," +
+                     "cobra,colza,comas,conga,copal,copra,coral,croak,float,flora,foals,foams,foamy,focal,foray,forma,fovea,gator,gloat," +
+                     "goals,goats,goral,groan,groat,halos,havoc,hoary,horal,jabot,loach,loafs,loamy,loans,loath,lobar,loran,major,manor," +
+                     "mason,mayor,moans,moats,mocha,molar,moral,moray,novae,novas,oaken,oaten,oaths,ocean,octal,okays,omega,opals,opera," +
+                     "orals,orate,organ,ovals,ovary,ovate,poach,polar,polka,rayon,roach,roams,roast,royal,sabot,salon,shoal,shoat,soapy," +
+                     "solar,sonar,stoma,tabor,tacos,talon,taros,tonal,topaz,vocal,wagon,woman,yapok,zonal,cabob,canon,coach,comma,cotta," +
+                     "fanon,kabob,kapok,koala,local,loyal,nabob,oases,offal,razor,roars,soaks,soaps,soars,sofas,stoat,tarot,toast,total," +
+                     "cocoa,momma,poppa", string.Join(',', result));
         
         _solver.AddIncorrect('a', 1);
         _solver.AddIncorrect('o', 3);
@@ -74,9 +74,9 @@ public class SolverTests
 
         result = _solver.GetMatches();
         
-        Assert.Equal("float,flora,foals,foams,foamy,foray,forma,fovea,gloat,goals,goats,goral,groat,hoary,horal,koala,loafs,loamy,loath," +
-                     "loyal,moats,molar,momma,moral,moray,offal,okays,omega,opals,opera,orals,orate,ovals,ovary,ovate,polar,polka,poppa," +
-                     "roams,roars,roast,royal,shoal,shoat,soaks,soaps,soapy,soars,sofas,solar,stoat,stoma,toast,topaz,total", string.Join(',', result));
+        Assert.Equal("float,flora,foals,foams,foamy,foray,forma,fovea,gloat,goals,goats,goral,groat,hoary,horal,loafs,loamy,loath,moats," +
+                     "molar,moral,moray,okays,omega,opals,opera,orals,orate,ovals,ovary,ovate,polar,polka,roams,roast,royal,shoal,shoat," +
+                     "soapy,solar,stoma,topaz,koala,loyal,offal,roars,soaks,soaps,soars,sofas,stoat,toast,total,momma,poppa", string.Join(',', result));
     }
     
     [Fact]

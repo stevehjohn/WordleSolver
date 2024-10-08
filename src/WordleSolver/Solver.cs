@@ -76,7 +76,7 @@ public class Solver
             matches.Add(word);
         }
         
-        return matches;
+        return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m).ToHashSet();;
     }
 
     private bool CheckCorrect(string word)
