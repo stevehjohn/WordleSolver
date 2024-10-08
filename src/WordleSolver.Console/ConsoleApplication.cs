@@ -21,7 +21,7 @@ public class ConsoleApplication
                 }
             }
             
-            // Do menu here
+            OutputLine("Menu");
         }
         // ReSharper disable once FunctionNeverReturns
     }
@@ -32,33 +32,58 @@ public class ConsoleApplication
         
         Output("> ");
 
-        var input = ReadLine();
+        var input = ReadLine() ?? string.Empty;
 
         if (input == "*")
         {
             return false;
+        }
+
+        for (var i = 0; i < input.Length; i++)
+        {
+            if (! char.IsLetter(input[i]))
+            {
+                continue;
+            }
+
+            _solver.SetCorrect(input[i], i);
         }
 
         OutputLine("Enter incorrectly placed letters:");
         
         Output("> ");
 
-        input = ReadLine();
+        input = ReadLine() ?? string.Empty;
 
         if (input == "*")
         {
             return false;
+        }
+        
+        for (var i = 0; i < input.Length; i++)
+        {
+            if (! char.IsLetter(input[i]))
+            {
+                continue;
+            }
+
+            _solver.AddIncorrect(input[i], i);
         }
 
         OutputLine("Enter any excluded letters:");
         
         Output("> ");
 
-        input = ReadLine();
+        input = ReadLine() ?? string.Empty;
 
         if (input == "*")
         {
             return false;
+        }
+                
+        for (var i = 0; i < input.Length; i++)
+        {
+            _solver.AddExcluded(input[i]);
         }
         
         OutputLine("Suggestions:");
