@@ -11,7 +11,7 @@ public static class EntryPoint
     {
         WriteLine();
         
-        WriteLine("Welcome to Wordle Solver.");
+        WriteLine("  Welcome to Wordle Solver.");
 
         while (true)
         {
@@ -22,5 +22,28 @@ public static class EntryPoint
 
     private static void ExecuteRound()
     {
+        WriteLine($"{Environment.NewLine}  Enter any correctly placed letters separated by spaces:");
+        
+        Write("  > ");
+
+        var correct = ReadLine();
+
+        WriteLine($"{Environment.NewLine}  Enter any incorrectly placed letters:");
+        
+        Write("  > ");
+
+        var incorrect = ReadLine();
+
+        WriteLine($"{Environment.NewLine}  Enter any excluded placed letters:");
+        
+        Write("  > ");
+
+        var excluded = ReadLine();
+        
+        WriteLine($"{Environment.NewLine}  First 10 suggestions:");
+
+        var result = _wordList.GetMatches(correct, incorrect, excluded).Take(10);
+        
+        WriteLine($"{Environment.NewLine}  {string.Join(", ", result)}");
     }
 }

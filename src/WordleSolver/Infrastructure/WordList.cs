@@ -40,19 +40,19 @@ public class WordList
         _words = list.Order().ToList();
     }
 
-    public HashSet<string> GetMatches(string correct, string available, string excluded)
+    public HashSet<string> GetMatches(string correct, string incorrect, string excluded)
     {
         var matches = new HashSet<string>();
 
         correct ??= string.Empty;
 
-        available ??= string.Empty;
+        incorrect ??= string.Empty;
 
         excluded ??= string.Empty;
 
         correct = correct.ToLower();
 
-        available = available.ToLower();
+        incorrect = incorrect.ToLower();
 
         excluded = excluded.ToLower();
 
@@ -89,7 +89,7 @@ public class WordList
         {
             for (var i = 0; i < 5; i++)
             {
-                if (available.Length > i && ! match.Contains(available[i]))
+                if (incorrect.Length > i && ! match.Contains(incorrect[i]))
                 {
                     remove.Add(match);
                     

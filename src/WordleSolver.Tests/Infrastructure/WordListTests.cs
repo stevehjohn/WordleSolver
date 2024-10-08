@@ -49,9 +49,9 @@ public class WordListTests
     [Theory]
     [InlineData(" lan", "b", "blanc,bland,blank")]
     [InlineData(" oin", "t", "joint,point")]
-    public void ReturnsExpectedMatchesForCorrectLettersWithAvailable(string correct, string available, string expected)
+    public void ReturnsExpectedMatchesForCorrectLettersWithAvailable(string correct, string incorrect, string expected)
     {
-        var result = _wordList.GetMatches(correct, available, null);
+        var result = _wordList.GetMatches(correct, incorrect, null);
 
         var list = expected.Split(',');
         
@@ -68,9 +68,9 @@ public class WordListTests
     [InlineData("    t", "io", "audbg", "foist,hoist,joint,joist,moist,picot,pilot,pitot,pivot,point,posit,vomit")]
     [InlineData(" oi t", "", "audbgfs", "joint,point")]
     [InlineData(" oint", "", "audbgfsp", "joint")]
-    public void SimulateRealGameProgression(string correct, string available, string excluded, string expected)
+    public void SimulateRealGameProgression(string correct, string incorrect, string excluded, string expected)
     {
-        var result = _wordList.GetMatches(correct, available, excluded);
+        var result = _wordList.GetMatches(correct, incorrect, excluded);
 
         var list = expected.Split(',');
         
