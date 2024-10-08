@@ -59,6 +59,8 @@ public class ConsoleApplication
         
         OutputLine("Excluded letters are not position sensitive.");
         
+        OutputLine("Enter * for options.");
+        
         OutputLine(string.Empty, false);
     }
 
