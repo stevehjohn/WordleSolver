@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
 		..\run.sh = ..\run.sh
+		..\test.sh = ..\test.sh
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleSolver.Console", "WordleSolver.Console\WordleSolver.Console.csproj", "{7B776AF0-D347-45C9-B9CA-714CEC881181}"
