@@ -10,11 +10,11 @@ public class Solver
 
     private readonly int _length;
 
-    private List<Tile> _correct = [];
+    private readonly List<Tile> _correct = [];
 
-    private List<Tile> _incorrect = [];
+    private readonly List<Tile> _incorrect = [];
 
-    private List<char> _excluded = [];
+    private readonly List<char> _excluded = [];
     
     public Solver(WordSet wordSet, int length = 5)
     {
