@@ -127,11 +127,11 @@ public class ConsoleApplication
         
         OutputLine("Suggestions:");
 
-        var result = _solver.GetMatches().Take(10);
+        var result = _solver.GetMatches().Take(10).ToList();
         
         OutputLine($"{string.Join(", ", result)}");
 
-        return true;
+        return result.Count > 1;
     }
 
     private static void ShowWelcome()
