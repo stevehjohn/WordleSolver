@@ -114,6 +114,6 @@ public class WordList
             matches.Remove(item);
         }
         
-        return matches;
+        return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m).ToHashSet();
     }
 }
