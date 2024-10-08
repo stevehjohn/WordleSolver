@@ -13,36 +13,61 @@ public class ConsoleApplication
 
         while (true)
         {
-            ExecuteRound();
+            while (true)
+            {
+                if (! ExecuteRound())
+                {
+                    break;
+                }
+            }
+            
+            // Do menu here
         }
         // ReSharper disable once FunctionNeverReturns
     }
 
-    private void ExecuteRound()
+    private bool ExecuteRound()
     {
         OutputLine("Enter correctly placed letters:");
         
         Output("> ");
 
-        var correct = ReadLine();
+        var input = ReadLine();
+
+        if (input == "*")
+        {
+            return false;
+        }
 
         OutputLine("Enter incorrectly placed letters:");
         
         Output("> ");
 
-        var incorrect = ReadLine();
+        input = ReadLine();
+
+        if (input == "*")
+        {
+            return false;
+        }
 
         OutputLine("Enter any excluded letters:");
         
         Output("> ");
 
-        var excluded = ReadLine();
+        input = ReadLine();
+
+        if (input == "*")
+        {
+            return false;
+        }
         
         OutputLine("Suggestions:");
 
-        var result = _solver.GetMatches(correct, incorrect, excluded).Take(10);
+        var result = _solver.GetMatches().Take(10);
         
         OutputLine($"{string.Join(", ", result)}");
+
+        return true;
     }
 
     private static void ShowWelcome()
