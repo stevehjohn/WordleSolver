@@ -6,19 +6,21 @@ public class WordList
 
     internal int WordCount => _words.Count;
     
-    public WordList()
+    public WordList(WordSet wordSet)
     {
-        var words = File.ReadAllLines("Resources/words.txt");
+        var words = File.ReadAllLines(wordSet == WordSet.Comprehensive ? "Resources/words.txt" :  "Resources/english-words.txt");
 
         foreach (var word in words)
         {
-            if (word.Length == 5)
+            var lower = word.ToLower();
+            
+            if (lower.Length == 5)
             {
                 var valid = true;
                 
-                foreach (var character in word)
+                foreach (var character in lower)
                 {
-                    if (! char.IsLower(character))
+                    if (! char.IsLetter(character))
                     {
                         valid = false;
                         
@@ -28,15 +30,27 @@ public class WordList
 
                 if (valid)
                 {
-                    _words.Add(word);
+                    _words.Add(lower);
                 }
             }
         }
     }
 
-    public HashSet<string> GetMatches(string correct, string available)
+    public HashSet<string> GetMatches(string correct, string available, string excluded)
     {
         var matches = new HashSet<string>();
+
+        correct ??= string.Empty;
+
+        available ??= string.Empty;
+
+        excluded ??= string.Empty;
+
+        correct = correct.ToLower();
+
+        available = available.ToLower();
+
+        excluded = excluded.ToLower();
 
         foreach (var word in _words)
         {
@@ -47,6 +61,15 @@ public class WordList
                 if (correct[i] != ' ' && correct[i] != word[i])
                 {
                     valid = false;
+                    
+                    break;
+                }
+
+                if (excluded.Contains(word[i]))
+                {
+                    valid = false;
+                    
+                    break;
                 }
             }
 
