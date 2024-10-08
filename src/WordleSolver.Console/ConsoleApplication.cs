@@ -49,7 +49,7 @@ public class ConsoleApplication
     {
         OutputLine("Welcome to Wordle Solver!");
         
-        OutputLine("When entering correctly or placed letters,");
+        OutputLine("When entering correctly or incorrectly placed letters,");
         
         OutputLine("separate with hyphens to indicate the position.", false);
 
