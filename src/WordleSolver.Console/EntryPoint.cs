@@ -5,7 +5,7 @@ namespace WordleSolver.Console;
 
 public static class EntryPoint
 {
-    private static WordList _wordList = new(WordSet.Basic);
+    private static readonly WordList WordList = new(WordSet.Basic);
     
     public static void Main()
     {
@@ -34,15 +34,15 @@ public static class EntryPoint
 
         var incorrect = ReadLine();
 
-        WriteLine($"{Environment.NewLine}  Enter any excluded placed letters:");
+        WriteLine($"{Environment.NewLine}  Enter any excluded letters:");
         
         Write("  > ");
 
         var excluded = ReadLine();
         
-        WriteLine($"{Environment.NewLine}  First 10 suggestions:");
+        WriteLine($"{Environment.NewLine}  Suggestions:");
 
-        var result = _wordList.GetMatches(correct, incorrect, excluded).Take(10);
+        var result = WordList.GetMatches(correct, incorrect, excluded).Take(10);
         
         WriteLine($"{Environment.NewLine}  {string.Join(", ", result)}");
     }
