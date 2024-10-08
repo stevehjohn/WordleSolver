@@ -13,8 +13,8 @@ public class WordListTests
     }
 
     [Theory]
-    [InlineData("plan ", "plana,plane,plang,plank,plano,plans,plant")]
-    [InlineData(" lan ", "alana,aland,alane,alang,alani,alano,alans,alant,blanc,bland,blane,blank,clang,clank,clans,elana,eland,elane,elans,flane,flang,flank,flann,flans,gland,glans,ilana,klans,llano,oland,plana,plane,plang,plank,plano,plans,plant,slane,slang,slank,slant,ulana,ulane,ulani,ulans")]
+    [InlineData("plan", "plana,plane,plang,plank,plano,plans,plant")]
+    [InlineData(" lan", "alana,aland,alane,alang,alani,alano,alans,alant,blanc,bland,blane,blank,clang,clank,clans,elana,eland,elane,elans,flane,flang,flank,flann,flans,gland,glans,ilana,klans,llano,oland,plana,plane,plang,plank,plano,plans,plant,slane,slang,slank,slant,ulana,ulane,ulani,ulans")]
     public void ReturnsExpectedMatchesForCorrectLetters(string correct, string expected)
     {
         var result = _wordList.GetMatches(correct, null, null);
@@ -30,7 +30,7 @@ public class WordListTests
     }
 
     [Theory]
-    [InlineData("plan ", "gt", "plana,plane,plank,plano,plans")]
+    [InlineData("plan", "gt", "plana,plane,plank,plano,plans")]
     public void ReturnsExpectedMatchesForCorrectLettersWithExclusions(string correct, string exclusions, string expected)
     {
         var result = _wordList.GetMatches(correct, null, exclusions);
@@ -46,7 +46,7 @@ public class WordListTests
     }
 
     [Theory]
-    [InlineData(" lan ", "bce", "blanc,bland,blane,blank")]
+    [InlineData(" lan", "bce", "blanc,bland,blane,blank")]
     public void ReturnsExpectedMatchesForCorrectLettersWithAvailable(string correct, string available, string expected)
     {
         var result = _wordList.GetMatches(correct, available, null);

@@ -2,8 +2,6 @@ namespace WordleSolver.Infrastructure;
 
 public class WordList
 {
-    private const string Empty = "     ";
-    
     private readonly List<string> _words;
 
     internal int WordCount => _words.Count;
@@ -46,11 +44,11 @@ public class WordList
     {
         var matches = new HashSet<string>();
 
-        correct ??= Empty;
+        correct ??= string.Empty;
 
-        available ??= Empty;
+        available ??= string.Empty;
 
-        excluded ??= Empty;
+        excluded ??= string.Empty;
 
         correct = correct.ToLower();
 
@@ -64,7 +62,7 @@ public class WordList
             
             for (var i = 0; i < 5; i++)
             {
-                if (correct[i] != ' ' && correct[i] != word[i])
+                if (correct.Length > i && correct[i] != ' ' && correct[i] != word[i])
                 {
                     valid = false;
                     
@@ -78,7 +76,7 @@ public class WordList
                     break;
                 }
                 
-                if (available[i] != ' ' && ! word.Contains(available[i]))
+                if (available.Length > i && available[i] != ' ' && ! word.Contains(available[i]))
                 {
                     valid = false;
                     
