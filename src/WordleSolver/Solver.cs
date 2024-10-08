@@ -9,12 +9,51 @@ public class Solver
     internal int WordCount => _wordList.WordCount;
 
     private readonly int _length;
+
+    private char[] _correct;
+
+    private List<Tile> _incorrect = [];
+
+    private List<char> _excluded = [];
     
     public Solver(WordSet wordSet, int length = 5)
     {
         _wordList = new WordList(wordSet, length);
 
         _length = length;
+
+        Reset();
+    }
+
+    public void SetCorrect(char letter, int position)
+    {
+        _correct[position] = letter;
+    }
+
+    public void AddIncorrect(char letter, int position)
+    {
+        _incorrect.Add(new Tile(letter, position));
+    }
+
+    public void AddExcluded(char letter)
+    {
+        _excluded.Add(letter);
+    }
+
+    public void Reset()
+    {
+        _correct = new char[_length];
+        
+        _incorrect.Clear();
+        
+        _excluded.Clear();
+    }
+
+    public HashSet<string> GetMatches()
+    {
+        var matches = new HashSet<string>();
+
+        return matches;
     }
 
     public HashSet<string> GetMatches(string correct, string incorrect, string excluded)
