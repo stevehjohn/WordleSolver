@@ -46,7 +46,7 @@ public class WordListTests
     }
 
     [Theory]
-    [InlineData(" lan", "bce", "blanc,bland,blane,blank")]
+    [InlineData(" lan", "b", "blanc,bland,blane,blank")]
     public void ReturnsExpectedMatchesForCorrectLettersWithAvailable(string correct, string available, string expected)
     {
         var result = _wordList.GetMatches(correct, available, null);

@@ -75,19 +75,32 @@ public class WordList
                     
                     break;
                 }
-                
-                if (available.Length > i && ! word.Contains(available[i]))
-                {
-                    valid = false;
-                    
-                    break;
-                }
             }
 
             if (valid)
             {
                 matches.Add(word);
             }
+        }
+
+        var remove = new List<string>();
+        
+        foreach (var match in matches)
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                if (available.Length > i && ! match.Contains(available[i]))
+                {
+                    remove.Add(match);
+                    
+                    break;
+                }
+            }
+        }
+
+        foreach (var item in remove)
+        {
+            matches.Remove(item);
         }
         
         return matches;
