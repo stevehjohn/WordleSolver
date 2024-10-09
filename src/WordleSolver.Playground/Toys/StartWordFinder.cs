@@ -10,6 +10,8 @@ public class StartWordFinder
 
     private readonly Solver _solver = new(WordSet.Basic);
 
+    private int _totalRounds;
+    
     private int _rounds;
 
     private int _totalSteps;
@@ -71,6 +73,17 @@ public class StartWordFinder
                 Write("  New lowest fails.");
             }
 
+            _totalRounds++;
+
+            if (_totalRounds > 10)
+            {
+                var remainingSeconds = (int) stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds);
+
+                var remaining = TimeSpan.FromSeconds(remainingSeconds);
+                
+                Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes}.{remaining.Seconds}");
+            }
+
             WriteLine();
         }
         
@@ -83,7 +96,7 @@ public class StartWordFinder
         WriteLine();
         WriteLine($"  Lowest mean steps: {_lowestMeanStepsWord}");
         WriteLine();
-        WriteLine($"  Time Taken:    {stopwatch.Elapsed.TotalMilliseconds:N2}ms");
+        WriteLine($"  Time Taken:        {stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes}.{stopwatch.Elapsed.Seconds}");
         WriteLine();
         WriteLine("  Cheers!");
         WriteLine();
