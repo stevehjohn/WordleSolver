@@ -81,7 +81,7 @@ public class StartWordFinder
 
                 var remaining = TimeSpan.FromSeconds(remainingSeconds);
                 
-                Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2}");
+                Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
             }
 
             WriteLine();
