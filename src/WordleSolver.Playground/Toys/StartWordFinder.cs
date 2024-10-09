@@ -81,7 +81,7 @@ public class StartWordFinder
 
                 var remaining = TimeSpan.FromSeconds(remainingSeconds);
                 
-                Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes}.{remaining.Seconds}");
+                Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2}");
             }
 
             WriteLine();
@@ -96,7 +96,7 @@ public class StartWordFinder
         WriteLine();
         WriteLine($"  Lowest mean steps: {_lowestMeanStepsWord}");
         WriteLine();
-        WriteLine($"  Time Taken:        {stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes}.{stopwatch.Elapsed.Seconds}");
+        WriteLine($"  Time Taken:        {stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes:D2}.{stopwatch.Elapsed.Seconds:D2}");
         WriteLine();
         WriteLine("  Cheers!");
         WriteLine();
