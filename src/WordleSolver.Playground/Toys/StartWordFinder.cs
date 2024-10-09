@@ -29,10 +29,13 @@ public class StartWordFinder
         WriteLine();
 
         var stopwatch = Stopwatch.StartNew();
-        
-        foreach (var word in _wordList.Words)
+
+        foreach (var startWord in _wordList.Words)
         {
-            PlayGame(word);
+            foreach (var expectedWord in _wordList.Words)
+            {
+                PlayGame(startWord, expectedWord);
+            }
         }
         
         stopwatch.Stop();
@@ -53,10 +56,8 @@ public class StartWordFinder
         ForegroundColor = ConsoleColor.Green;
     }
 
-    private void PlayGame(string expected)
+    private void PlayGame(string word, string expected)
     {
-        var word = "AUDIO";
-        
         var steps = 0;
         
         _solver.Reset();
@@ -104,8 +105,6 @@ public class StartWordFinder
 
     private (StepResult Result, string NextWord) PlayStep(string expected, string word)
     {
-        Write("  ");
-
         expected = expected.ToUpper();
 
         word = word.ToUpper();
@@ -114,10 +113,6 @@ public class StartWordFinder
         {
             if (expected[i] == word[i])
             {
-                ForegroundColor = ConsoleColor.Green;
-                
-                Write(expected[i]);
-                
                 _solver.SetCorrect(expected[i], i);
                 
                 continue;
@@ -125,23 +120,13 @@ public class StartWordFinder
 
             if (expected.Contains(word[i]))
             {
-                ForegroundColor = ConsoleColor.Yellow;
-                
-                Write(word[i]);
-                
                 _solver.AddIncorrect(word[i], i);
                 
                 continue;
             }
-
-            ForegroundColor = ConsoleColor.Gray;
-                
-            Write(word[i]);
             
             _solver.AddExcluded(word[i]);
         }
-
-        ForegroundColor = ConsoleColor.Green;
 
         var matches = _solver.GetMatches();
 
@@ -152,10 +137,6 @@ public class StartWordFinder
 
         if (matches.First().Equals(expected, StringComparison.InvariantCultureIgnoreCase))
         {
-            ForegroundColor = ConsoleColor.Green;
-            
-            WriteLine($"  {expected}");
-            
             return (StepResult.Solved, null);
         }
 
