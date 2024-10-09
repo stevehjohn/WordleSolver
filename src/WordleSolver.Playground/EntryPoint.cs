@@ -1,9 +1,11 @@
-﻿namespace WordleSolver.Playground;
+﻿using WordleSolver.Playground.Toys;
+
+namespace WordleSolver.Playground;
 
 public static class EntryPoint
 {
-    static void Main(string[] args)
+    public static void Main()
     {
-        Console.WriteLine("Hello, World!");
+        var exerciser = new Excerciser();
     }
 }
