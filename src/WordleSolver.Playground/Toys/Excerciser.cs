@@ -17,8 +17,11 @@ public class Excerciser
     
     public void RunAgainstAllWords()
     {
+        ForegroundColor = ConsoleColor.Cyan;
+        
         WriteLine();
         WriteLine("  Playing all words!");
+        WriteLine();
         
         foreach (var word in _wordList.Words)
         {
@@ -34,12 +37,14 @@ public class Excerciser
         WriteLine();
         WriteLine("  Cheers!");
         WriteLine();
+
+        ForegroundColor = ConsoleColor.Green;
     }
 
     private void PlayGame(string expected)
     {
         var word = "AUDIO";
-
+        expected = "ABCED";
         var steps = 0;
         
         _solver.Reset();
@@ -70,22 +75,41 @@ public class Excerciser
 
     private StepResult PlayStep(string expected, string word)
     {
-        ForegroundColor = ConsoleColor.White;
-        
         Write("  ");
         
         for (var i = 0; i < 5; i++)
         {
             if (expected[i] == word[i])
             {
-                BackgroundColor = ConsoleColor.Green;
-                ForegroundColor = ConsoleColor.White;
+                ForegroundColor = ConsoleColor.Green;
                 
                 Write(expected[i]);
+                
+                _solver.SetCorrect(expected[i], i);
+                
+                continue;
             }
-        }
 
-        BackgroundColor = ConsoleColor.Black;
+            if (expected.Contains(word[i]))
+            {
+                ForegroundColor = ConsoleColor.Yellow;
+                
+                Write(word[i]);
+                
+                _solver.AddIncorrect(word[i], i);
+                
+                continue;
+            }
+
+            ForegroundColor = ConsoleColor.Gray;
+                
+            Write(word[i]);
+            
+            _solver.AddExcluded(word[i]);
+        }
+        
+        WriteLine();
+
         ForegroundColor = ConsoleColor.Green;
 
         return StepResult.Solved;
