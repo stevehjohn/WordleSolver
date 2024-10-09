@@ -28,7 +28,6 @@ public class Solver
 
     public void SetCorrect(char letter, int position)
     {
-        // TODO: Should this throw and insist on a reset?
         _correct.RemoveAll(t => t.Position == position);
         
         _correct.Add(new Tile(letter, position));
