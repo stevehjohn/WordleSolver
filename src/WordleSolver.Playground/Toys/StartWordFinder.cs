@@ -28,7 +28,7 @@ public class StartWordFinder
     
     public void FindBestStartWord()
     {
-        ForegroundColor = ConsoleColor.Cyan;
+        ForegroundColor = ConsoleColor.Gray;
         
         WriteLine();
         WriteLine("  Playing all words!");
@@ -52,26 +52,42 @@ public class StartWordFinder
             }
 
             var meanSteps = (float) _totalSteps / _rounds;
-            
-            Write($"  Fails: {_fails,3:N0}    Mean Steps: {meanSteps:N4}");
 
+            ForegroundColor = ConsoleColor.Green;
+            
+            Write("  Mean Steps: ");
+
+            ForegroundColor = ConsoleColor.Gray;
+            
             if (meanSteps < _lowestMeanSteps)
             {
                 _lowestMeanSteps = meanSteps;
 
                 _lowestMeanStepsWord = startWord;
-                
-                Write("  New lowest mean steps.");
-            }
 
+                ForegroundColor = ConsoleColor.Green;
+            }
+            
+            Write($"{meanSteps:N4}  ");
+
+            ForegroundColor = ConsoleColor.Yellow;
+
+            Write("Fails: ");
+
+            ForegroundColor = ConsoleColor.Gray;
+            
             if (_fails < _lowestFails)
             {
                 _lowestFails = _fails;
 
                 _lowestFailsWord = startWord;
-                
-                Write("  New lowest fails.");
+
+                ForegroundColor = ConsoleColor.Yellow;
             }
+            
+            Write($"{_fails,3:N0}");
+
+            ForegroundColor = ConsoleColor.Gray;
 
             _totalRounds++;
 
@@ -83,6 +99,14 @@ public class StartWordFinder
                 
                 Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
             }
+
+            ForegroundColor = ConsoleColor.Green;
+            
+            Write($"  {_lowestMeanSteps}"_lowestMeanSteps);
+
+            ForegroundColor = ConsoleColor.Yellow;
+            
+            Write($"  {_lowestFails}");
 
             WriteLine();
         }
