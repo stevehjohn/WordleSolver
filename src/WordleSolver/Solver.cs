@@ -30,17 +30,17 @@ public class Solver
     {
         _correct.RemoveAll(t => t.Position == position);
         
-        _correct.Add(new Tile(letter, position));
+        _correct.Add(new Tile(char.ToLower(letter), position));
     }
 
     public void AddIncorrect(char letter, int position)
     {
-        _incorrect.Add(new Tile(letter, position));
+        _incorrect.Add(new Tile(char.ToLower(letter), position));
     }
 
     public void AddExcluded(char letter)
     {
-        _excluded.Add(letter);
+        _excluded.Add(char.ToLower(letter));
     }
 
     public void Reset()

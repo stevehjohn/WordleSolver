@@ -44,7 +44,7 @@ public class Excerciser
     private void PlayGame(string expected)
     {
         var word = "AUDIO";
-        expected = "ABCED";
+        
         var steps = 0;
         
         _solver.Reset();
@@ -53,7 +53,7 @@ public class Excerciser
         {
             steps++;
             
-            var result = PlayStep(expected, word);
+            var (result, nextWord) = PlayStep(expected, word);
 
             if (result == StepResult.Failed)
             {
@@ -66,6 +66,8 @@ public class Excerciser
             {
                 break;
             }
+
+            word = nextWord; //.ToUpper();
         }
 
         _totalSteps += steps;
@@ -73,9 +75,13 @@ public class Excerciser
         _rounds++;
     }
 
-    private StepResult PlayStep(string expected, string word)
+    private (StepResult Result, string NextWord) PlayStep(string expected, string word)
     {
         Write("  ");
+
+        expected = expected.ToUpper();
+
+        word = word.ToUpper();
         
         for (var i = 0; i < 5; i++)
         {
@@ -107,11 +113,25 @@ public class Excerciser
             
             _solver.AddExcluded(word[i]);
         }
-        
-        WriteLine();
 
         ForegroundColor = ConsoleColor.Green;
 
-        return StepResult.Solved;
+        var matches = _solver.GetMatches();
+
+        if (matches.Count == 0)
+        {
+            return (StepResult.Failed, null);
+        }
+
+        if (matches.First().Equals(expected, StringComparison.InvariantCultureIgnoreCase))
+        {
+            ForegroundColor = ConsoleColor.Green;
+            
+            WriteLine($"  {expected}");
+            
+            return (StepResult.Solved, null);
+        }
+
+        return (StepResult.Continue, matches.First());
     }
 }
