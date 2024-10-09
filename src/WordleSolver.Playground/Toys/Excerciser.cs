@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using WordleSolver.Infrastructure;
 using static System.Console;
 
@@ -14,6 +15,10 @@ public class Excerciser
     private int _totalSteps;
 
     private int _fails;
+
+    private int _minSteps = int.MaxValue;
+
+    private int _maxSteps;
     
     public void RunAgainstAllWords()
     {
@@ -22,18 +27,27 @@ public class Excerciser
         WriteLine();
         WriteLine("  Playing all words!");
         WriteLine();
+
+        var stopwatch = Stopwatch.StartNew();
         
         foreach (var word in _wordList.Words)
         {
             PlayGame(word);
             
-            break;
+            //Thread.Sleep(10);
         }
+        
+        stopwatch.Stop();
+        
+        ForegroundColor = ConsoleColor.Cyan;
         
         WriteLine();
         WriteLine($"  Rounds Played: {_rounds}");
-        WriteLine($"  Average Steps: {(float) _totalSteps / _rounds:F2}");
-        WriteLine($"  Failures:      {_fails}");
+        WriteLine($"  Average Steps: {(float) _totalSteps / _rounds:N2}");
+        WriteLine($"  Failures:      {_fails} ({(float) _fails / _rounds:N2}%)");
+        WriteLine($"  Max Steps:     {_maxSteps}");
+        WriteLine($"  Min Steps:     {_minSteps}");
+        WriteLine($"  Time Taken:    {stopwatch.Elapsed.TotalMilliseconds:N2}ms");
         WriteLine();
         WriteLine("  Cheers!");
         WriteLine();
@@ -67,7 +81,22 @@ public class Excerciser
                 break;
             }
 
-            word = nextWord; //.ToUpper();
+            word = nextWord.ToUpper();
+        }
+
+        if (steps > _maxSteps)
+        {
+            _maxSteps = steps;
+        }
+
+        if (steps < _minSteps)
+        {
+            _minSteps = steps;
+        }
+
+        if (steps > 6)
+        {
+            _fails++;
         }
 
         _totalSteps += steps;
