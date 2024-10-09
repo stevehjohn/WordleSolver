@@ -6,9 +6,9 @@ namespace WordleSolver.Playground.Toys;
 
 public class StartWordFinder
 {
-    private readonly WordList _wordList = new(WordSet.Basic);
+    private readonly WordList _wordList = new(WordSet.Scrabble);
 
-    private readonly Solver _solver = new(WordSet.Basic);
+    private readonly Solver _solver = new(WordSet.Scrabble);
 
     private int _totalRounds;
     
