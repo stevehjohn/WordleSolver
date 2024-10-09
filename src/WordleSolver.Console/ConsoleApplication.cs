@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using WordleSolver.Infrastructure;
 using static System.Console;
 
 namespace WordleSolver.Console;
 
+[ExcludeFromCodeCoverage]
 public class ConsoleApplication
 {
     private readonly Solver _solver = new(WordSet.Basic);

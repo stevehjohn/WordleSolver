@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using WordleSolver.Infrastructure;
 
 namespace WordleSolver;
@@ -79,6 +80,7 @@ public class Solver
         return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m).ToHashSet();
     }
 
+    [ExcludeFromCodeCoverage]
     public void DumpState()
     {
         var colour = Console.ForegroundColor;
