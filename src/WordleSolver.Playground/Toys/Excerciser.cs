@@ -6,9 +6,9 @@ namespace WordleSolver.Playground.Toys;
 
 public class Excerciser
 {
-    private readonly WordList _wordList = new(WordSet.OriginalAllowedGuesses);
+    private readonly WordList _wordList = new(WordSet.OriginalAllowedAnswers);
 
-    private readonly Solver _solver = new(WordSet.OriginalAllowedGuesses);
+    private readonly Solver _solver = new(WordSet.OriginalAllowedAnswers);
 
     private int _rounds;
 
@@ -55,7 +55,7 @@ public class Excerciser
 
     private void PlayGame(string expected)
     {
-        var word = "AUDIO";
+        var word = "SLANT";
         
         var steps = 0;
         
