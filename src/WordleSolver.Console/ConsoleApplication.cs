@@ -52,6 +52,7 @@ public class ConsoleApplication
         switch (input)
         {
             case "1":
+                Clear();
                 _solver.Reset();
                 break;
             
