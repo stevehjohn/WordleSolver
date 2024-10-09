@@ -6,9 +6,9 @@ namespace WordleSolver.Playground.Toys;
 
 public class StartWordFinder
 {
-    private readonly WordList _wordList = new(WordSet.Basic);
+    private readonly WordList _wordList = new(WordSet.OriginalAllowedAnswers);
 
-    private readonly Solver _solver = new(WordSet.Basic);
+    private readonly Solver _solver = new(WordSet.OriginalAllowedAnswers);
 
     private int _totalRounds;
     
@@ -103,11 +103,11 @@ public class StartWordFinder
 
             if (_totalRounds > 10)
             {
-                var remainingSeconds = (int) stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds);
+                var remainingSeconds = (int) (stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds));
 
                 var remaining = TimeSpan.FromSeconds(remainingSeconds);
                 
-                Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
+                Write($"  ETR: {remainingSeconds} {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
             }
 
             WriteLine();
