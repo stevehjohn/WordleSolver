@@ -6,9 +6,9 @@ namespace WordleSolver.Playground.Toys;
 
 public class Excerciser
 {
-    private readonly WordList _wordList = new(WordSet.Basic);
+    private readonly WordList _wordList = new(WordSet.OriginalAllowedAnswers);
 
-    private readonly Solver _solver = new(WordSet.Basic);
+    private readonly Solver _solver = new(WordSet.OriginalAllowedAnswers);
 
     private int _rounds;
 
