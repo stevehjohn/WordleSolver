@@ -1,9 +1,11 @@
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using WordleSolver.Infrastructure;
 using static System.Console;
 
 namespace WordleSolver.Playground.Toys;
 
+[ExcludeFromCodeCoverage]
 public class Excerciser
 {
     private readonly WordList _wordList = new(WordSet.OriginalAllowedAnswers);
