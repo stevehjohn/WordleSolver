@@ -91,6 +91,16 @@ public class StartWordFinder
 
             _totalRounds++;
 
+            ForegroundColor = ConsoleColor.Green;
+            
+            Write($"  {_lowestMeanStepsWord}");
+
+            ForegroundColor = ConsoleColor.Yellow;
+            
+            Write($"  {_lowestFailsWord}");
+
+            ForegroundColor = ConsoleColor.Gray;
+
             if (_totalRounds > 10)
             {
                 var remainingSeconds = (int) stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds);
@@ -100,14 +110,6 @@ public class StartWordFinder
                 Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
             }
 
-            ForegroundColor = ConsoleColor.Green;
-            
-            Write($"  {_lowestMeanSteps}"_lowestMeanSteps);
-
-            ForegroundColor = ConsoleColor.Yellow;
-            
-            Write($"  {_lowestFails}");
-
             WriteLine();
         }
         
@@ -116,9 +118,9 @@ public class StartWordFinder
         ForegroundColor = ConsoleColor.Cyan;
         
         WriteLine();
-        WriteLine($"  Lowest failures:   {_lowestFailsWord}");
+        WriteLine($"  Lowest failures:   {_lowestFailsWord} ({_lowestFails:N0})");
         WriteLine();
-        WriteLine($"  Lowest mean steps: {_lowestMeanStepsWord}");
+        WriteLine($"  Lowest mean steps: {_lowestMeanStepsWord} ({_lowestMeanSteps:N4})");
         WriteLine();
         WriteLine($"  Time Taken:        {stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes:D2}.{stopwatch.Elapsed.Seconds:D2}");
         WriteLine();
