@@ -32,6 +32,8 @@ public class StartWordFinder
 
         foreach (var startWord in _wordList.Words)
         {
+            WriteLine($"  {startWord}");
+            
             foreach (var expectedWord in _wordList.Words)
             {
                 PlayGame(startWord, expectedWord);
