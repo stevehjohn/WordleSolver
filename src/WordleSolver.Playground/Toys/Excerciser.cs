@@ -44,9 +44,29 @@ public class Excerciser
         
         while (true)
         {
+            steps++;
             
+            var result = PlayStep(word);
+
+            if (result == StepResult.Failed)
+            {
+                _fails++;
+                
+                break;
+            }
+
+            if (result == StepResult.Solved)
+            {
+                break;
+            }
         }
 
+        _totalSteps += steps;
+
         _rounds++;
+    }
+
+    private StepResult PlayStep(string word)
+    {
     }
 }
