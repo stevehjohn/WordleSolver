@@ -36,7 +36,7 @@ public class StartWordFinder
 
         var stopwatch = Stopwatch.StartNew();
 
-        foreach (var startWord in _wordList.Words.Take(20))
+        foreach (var startWord in _wordList.Words)
         {
             _rounds = 0;
 
