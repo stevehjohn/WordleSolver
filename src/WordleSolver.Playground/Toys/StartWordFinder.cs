@@ -16,9 +16,13 @@ public class StartWordFinder
 
     private int _fails;
 
-    private int _minSteps = int.MaxValue;
+    private int _lowestFails = int.MaxValue;
 
-    private int _maxSteps;
+    private string _lowestFailsWord;
+
+    private float _lowestMeanSteps = float.MaxValue;
+
+    private string _lowestMeanStepsWord;
     
     public void FindBestStartWord()
     {
@@ -32,12 +36,38 @@ public class StartWordFinder
 
         foreach (var startWord in _wordList.Words)
         {
-            WriteLine($"  {startWord}");
+            _rounds = 0;
+
+            _totalSteps = 0;
+
+            _fails = 0;
+            
+            Write($"  {startWord}");
             
             foreach (var expectedWord in _wordList.Words)
             {
                 PlayGame(startWord, expectedWord);
             }
+
+            var meanSteps = (float) _totalSteps / _rounds;
+            
+            Write($"  Fails: {_fails,3:N0}    Mean Steps: {meanSteps:N2}");
+
+            if (meanSteps < _lowestMeanSteps)
+            {
+                _lowestMeanSteps = meanSteps;
+
+                _lowestMeanStepsWord = startWord;
+            }
+
+            if (_fails < _lowestFails)
+            {
+                _lowestFails = _fails;
+
+                _lowestFailsWord = startWord;
+            }
+
+            WriteLine();
         }
         
         stopwatch.Stop();
@@ -47,8 +77,6 @@ public class StartWordFinder
         WriteLine();
         WriteLine($"  Rounds Played: {_rounds}");
         WriteLine($"  Failures:      {_fails} ({(float) _fails / _rounds:N2}%)");
-        WriteLine($"  Max Steps:     {_maxSteps}");
-        WriteLine($"  Min Steps:     {_minSteps}");
         WriteLine($"  Mean Steps:    {(float) _totalSteps / _rounds:N2}");
         WriteLine($"  Time Taken:    {stopwatch.Elapsed.TotalMilliseconds:N2}ms");
         WriteLine();
@@ -83,16 +111,6 @@ public class StartWordFinder
             }
 
             word = nextWord.ToUpper();
-        }
-
-        if (steps > _maxSteps)
-        {
-            _maxSteps = steps;
-        }
-
-        if (steps < _minSteps)
-        {
-            _minSteps = steps;
         }
 
         if (steps > 6)
