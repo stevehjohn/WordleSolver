@@ -5,5 +5,6 @@ public enum WordSet
     Basic,
     Comprehensive,
     OriginalAllowedGuesses,
-    OriginalAllowedAnswers
+    OriginalAllowedAnswers,
+    Scrabble
 }

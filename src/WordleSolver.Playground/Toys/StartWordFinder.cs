@@ -101,14 +101,11 @@ public class StartWordFinder
 
             ForegroundColor = ConsoleColor.Gray;
 
-            if (_totalRounds > 10)
-            {
-                var remainingSeconds = (int) (stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds));
+            var remainingSeconds = (int) (stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds));
 
-                var remaining = TimeSpan.FromSeconds(remainingSeconds);
-                
-                Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
-            }
+            var remaining = TimeSpan.FromSeconds(remainingSeconds);
+            
+            Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
 
             WriteLine();
         }

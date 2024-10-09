@@ -15,6 +15,7 @@ public class WordList
             WordSet.Comprehensive => "words",
             WordSet.OriginalAllowedAnswers => "original-allowed-answers",
             WordSet.OriginalAllowedGuesses => "original-allowed-guesses",
+            WordSet.Scrabble => "scrabble",
             _ => "english-words"
         }}.txt");
         
