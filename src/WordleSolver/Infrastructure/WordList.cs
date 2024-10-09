@@ -10,8 +10,14 @@ public class WordList
     
     public WordList(WordSet wordSet, int length = 5)
     {
-        var words = File.ReadAllLines(wordSet == WordSet.Comprehensive ? "Resources/words.txt" :  "Resources/english-words.txt");
-
+        var words = File.ReadAllLines($"Resources/{wordSet switch
+        {
+            WordSet.Comprehensive => "words",
+            WordSet.OriginalAllowedAnswers => "original-allowed-answers",
+            WordSet.OriginalAllowedGuesses => "original-allowed-guesses",
+            _ => "english-words"
+        }}.txt");
+        
         var list = new List<string>();
         
         foreach (var word in words)
