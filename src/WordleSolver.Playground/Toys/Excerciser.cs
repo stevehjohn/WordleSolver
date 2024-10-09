@@ -43,10 +43,10 @@ public class Excerciser
         
         WriteLine();
         WriteLine($"  Rounds Played: {_rounds}");
-        WriteLine($"  Average Steps: {(float) _totalSteps / _rounds:N2}");
         WriteLine($"  Failures:      {_fails} ({(float) _fails / _rounds:N2}%)");
         WriteLine($"  Max Steps:     {_maxSteps}");
         WriteLine($"  Min Steps:     {_minSteps}");
+        WriteLine($"  Mean Steps:    {(float) _totalSteps / _rounds:N2}");
         WriteLine($"  Time Taken:    {stopwatch.Elapsed.TotalMilliseconds:N2}ms");
         WriteLine();
         WriteLine("  Cheers!");
