@@ -34,7 +34,7 @@ public class StartWordFinder
 
         var stopwatch = Stopwatch.StartNew();
 
-        foreach (var startWord in _wordList.Words)
+        foreach (var startWord in _wordList.Words.Take(20))
         {
             _rounds = 0;
 
@@ -79,9 +79,10 @@ public class StartWordFinder
         ForegroundColor = ConsoleColor.Cyan;
         
         WriteLine();
-        WriteLine($"  Rounds Played: {_rounds}");
-        WriteLine($"  Failures:      {_fails} ({(float) _fails / _rounds:N2}%)");
-        WriteLine($"  Mean Steps:    {(float) _totalSteps / _rounds:N2}");
+        WriteLine($"  Lowest failures:   {_lowestFailsWord}");
+        WriteLine();
+        WriteLine($"  Lowest mean steps: {_lowestMeanStepsWord}");
+        WriteLine();
         WriteLine($"  Time Taken:    {stopwatch.Elapsed.TotalMilliseconds:N2}ms");
         WriteLine();
         WriteLine("  Cheers!");
