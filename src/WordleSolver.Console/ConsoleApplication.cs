@@ -124,6 +124,10 @@ public class ConsoleApplication
         {
             _solver.AddExcluded(input[i]);
         }
+                        
+        Clear();
+
+        OutputLine();
         
         OutputLine("Suggestions:");
 
