@@ -6,14 +6,19 @@ namespace WordleSolver.Playground;
 [ExcludeFromCodeCoverage]
 public static class EntryPoint
 {
-    public static void Main()
+    public static void Main(string[] arguments)
     {
-        // var exerciser = new Excerciser();
-        //
-        // exerciser.RunAgainstAllWords();
-
-        var finder = new StartWordFinder();
+        if (arguments.Length > 0 && arguments[0] == "finder")
+        {
+            var finder = new StartWordFinder();
         
-        finder.FindBestStartWord();
+            finder.FindBestStartWord();
+        }
+        else
+        {
+            var exerciser = new Excerciser();
+            
+            exerciser.RunAgainstAllWords();
+        }
     }
 }
