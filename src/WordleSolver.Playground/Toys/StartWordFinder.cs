@@ -53,7 +53,7 @@ public class StartWordFinder
 
             var meanSteps = (float) _totalSteps / _rounds;
             
-            Write($"  Fails: {_fails,3:N0}    Mean Steps: {meanSteps:N2}");
+            Write($"  Fails: {_fails,3:N0}    Mean Steps: {meanSteps:N4}");
 
             if (meanSteps < _lowestMeanSteps)
             {
