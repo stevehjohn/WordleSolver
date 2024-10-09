@@ -33,8 +33,6 @@ public class Excerciser
         foreach (var word in _wordList.Words)
         {
             PlayGame(word);
-            
-            //Thread.Sleep(10);
         }
         
         stopwatch.Stop();
