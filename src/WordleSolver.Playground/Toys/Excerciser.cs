@@ -6,9 +6,9 @@ namespace WordleSolver.Playground.Toys;
 
 public class Excerciser
 {
-    private readonly WordList _wordList = new(WordSet.Basic);
+    private readonly WordList _wordList = new(WordSet.OriginalAllowedGuesses);
 
-    private readonly Solver _solver = new(WordSet.Basic);
+    private readonly Solver _solver = new(WordSet.OriginalAllowedGuesses);
 
     private int _rounds;
 
@@ -147,6 +147,10 @@ public class Excerciser
 
         if (matches.Count == 0)
         {
+            ForegroundColor = ConsoleColor.Magenta;
+            
+            WriteLine($"  {expected}");
+            
             return (StepResult.Failed, null);
         }
 
