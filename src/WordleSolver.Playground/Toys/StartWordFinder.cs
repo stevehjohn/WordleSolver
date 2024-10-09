@@ -58,6 +58,8 @@ public class StartWordFinder
                 _lowestMeanSteps = meanSteps;
 
                 _lowestMeanStepsWord = startWord;
+                
+                Write("  New lowest mean steps.");
             }
 
             if (_fails < _lowestFails)
@@ -65,6 +67,8 @@ public class StartWordFinder
                 _lowestFails = _fails;
 
                 _lowestFailsWord = startWord;
+                
+                Write("  New lowest fails.");
             }
 
             WriteLine();
