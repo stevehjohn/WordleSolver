@@ -8,7 +8,7 @@ namespace WordleSolver.Playground.Toys;
 [ExcludeFromCodeCoverage]
 public class StartWordFinder
 {
-    private const int MaxThreads = 30;
+    private const int MaxThreads = 20;
     
     private readonly WordList _wordList = new(WordSet.Scrabble);
 
