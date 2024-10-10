@@ -16,8 +16,6 @@ public class Solver
     private readonly List<char> _excluded = [];
 
     private readonly int _length;
-
-    private List<string> _words;
     
     public Solver(WordSet wordSet, int length = 5)
     {
@@ -52,17 +50,13 @@ public class Solver
         _incorrect.Clear();
         
         _excluded.Clear();
-
-        _words = _wordList.Words.ToList();
     }
 
     public HashSet<string> GetMatches()
     {
         var matches = new HashSet<string>();
 
-        var remove = new HashSet<string>();
-        
-        foreach (var word in _words)
+        foreach (var word in _wordList.Words)
         {
             if (! CheckCorrect(word))
             {
@@ -76,15 +70,11 @@ public class Solver
 
             if (! CheckExcluded(word))
             {
-                remove.Add(word);
-                
                 continue;
             }
 
             matches.Add(word);
         }
-
-        _words.RemoveAll(w => remove.Contains(w));
         
         return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m).ToHashSet();
     }
