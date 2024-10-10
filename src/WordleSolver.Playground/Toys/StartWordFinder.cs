@@ -85,7 +85,7 @@ public class StartWordFinder
                 ForegroundColor = ConsoleColor.Yellow;
             }
             
-            Write($"{_fails,3:N0}");
+            Write($"{_fails,5:N0}");
 
             ForegroundColor = ConsoleColor.Gray;
 
