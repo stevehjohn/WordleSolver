@@ -104,8 +104,15 @@ public class StartWordFinder
             var remainingSeconds = (int) (stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds));
 
             var remaining = TimeSpan.FromSeconds(remainingSeconds);
-            
-            Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
+
+            if (remaining.Days > 0)
+            {
+                Write($"  ETR: {remaining.Days}d {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
+            }
+            else
+            {
+                Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
+            }
 
             WriteLine();
         }
