@@ -58,14 +58,22 @@ public class StartWordFinder
 
                 _fails = 0;
 
-                var solver = _solvers.Pop();
+                Solver solver;
+                
+                lock (_lock)
+                {
+                    solver = _solvers.Pop();
+                }
 
                 foreach (var expectedWord in _wordList.Words)
                 {
                     PlayGame(solver, startWord, expectedWord);
                 }
 
-                _solvers.Push(solver);
+                lock (_lock)
+                {
+                    _solvers.Push(solver);
+                }
 
                 lock (_lock)
                 {
