@@ -48,26 +48,39 @@ public class WordList
             }
         }
 
+        var frequencies = new Dictionary<char, int>();
+        
         for (var c = 'a'; c <= 'z'; c++)
         {
-            _frequencies.Add(c, 0);
+            frequencies.Add(c, 0);
         }
 
         foreach (var word in list)
         {
             foreach (var character in word)
             {
-                _frequencies[character]++;
+                frequencies[character]++;
             }
         }
+
+        var ordered = frequencies.OrderBy(f => f.Value);
+
+        var score = 0;
         
+        foreach (var item in ordered)
+        {
+            _frequencies.Add(item.Key, score);
+
+            score++;
+        }
+
         foreach (var word in list.Order())
         {
-            var score = 0;
+            score = 0;
             
             foreach (var character in word)
             {
-                score += _frequencies[character];
+                score *= _frequencies[character];
             }
             
             _words.Add(new WordListItem(word, score));
