@@ -2,9 +2,9 @@ namespace WordleSolver.Infrastructure;
 
 public class WordList
 {
-    private readonly List<string> _words;
+    private readonly List<WordListItem> _words = [];
 
-    public IReadOnlyList<string> Words => _words;
+    public IReadOnlyList<WordListItem> Words => _words;
 
     internal int WordCount => _words.Count;
     
@@ -46,6 +46,9 @@ public class WordList
             }
         }
 
-        _words = list.Order().ToList();
+        foreach (var word in list.Order())
+        {
+            _words.Add(new WordListItem(word));
+        }
     }
 }

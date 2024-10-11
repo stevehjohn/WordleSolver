@@ -60,7 +60,7 @@ public class Excerciser
                     solver = _solvers.Pop();
                 }
 
-                PlayGame(solver, word);
+                PlayGame(solver, word.Word);
                 
                 lock (_lock)
                 {
