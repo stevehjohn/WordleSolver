@@ -11,7 +11,7 @@ public class Excerciser
 {
     private const int MaxThreads = 20;
     
-    private readonly WordList _wordList = new(WordSet.Scrabble);
+    private readonly WordList _wordList = new(WordSet.Comprehensive);
 
     private int _rounds;
 
@@ -89,6 +89,8 @@ public class Excerciser
         solver.Reset();
 
         var builder = new StringBuilder();
+
+        var failed = false;
         
         while (true)
         {
@@ -100,7 +102,7 @@ public class Excerciser
 
             if (result == StepResult.Failed)
             {
-                _fails++;
+                failed = true;
                 
                 break;
             }
@@ -113,27 +115,27 @@ public class Excerciser
             word = nextWord.ToUpper();
         }
 
-        if (steps > _maxSteps)
-        {
-            _maxSteps = steps;
-        }
-
-        if (steps < _minSteps)
-        {
-            _minSteps = steps;
-        }
-
-        if (steps > 6)
-        {
-            _fails++;
-        }
-
-        _totalSteps += steps;
-
-        _rounds++;
-
         lock (_lock)
         {
+            _rounds++;
+
+            if (steps > _maxSteps)
+            {
+                _maxSteps = steps;
+            }
+
+            if (steps < _minSteps)
+            {
+                _minSteps = steps;
+            }
+
+            if (steps > 6 || failed)
+            {
+                _fails++;
+            }
+
+            _totalSteps += steps;
+
             OutputLine(builder.ToString());
         }
     }
