@@ -170,7 +170,7 @@ public class StartWordFinder
                 break;
             }
 
-            word = nextWord.ToUpper();
+            word = nextWord;
         }
 
         if (steps > 6)
