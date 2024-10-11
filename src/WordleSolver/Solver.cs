@@ -72,17 +72,17 @@ public class Solver
                 continue;
             }
 
-            matches.Add(word);
+            matches.Add(word.Word);
         }
         
         return matches.OrderByDescending(word => word.CountDistinctCharacters()).ThenBy(m => m);
     }
     
-    private bool CheckCorrect(string word)
+    private bool CheckCorrect(WordListItem word)
     {
         foreach (var tile in _correct)
         {
-            if (word[tile.Position] != tile.Character)
+            if (word.Word[tile.Position] != tile.Character)
             {
                 return false;
             }
@@ -91,11 +91,11 @@ public class Solver
         return true;
     }
 
-    private bool CheckIncorrect(string word)
+    private bool CheckIncorrect(WordListItem word)
     {
         foreach (var tile in _incorrect)
         {
-            if (word[tile.Position] == tile.Character || ! word.ContainsCharacter(tile.Character))
+            if (word.Word[tile.Position] == tile.Character || ! word.Contains(tile.Character))
             {
                 return false;
             }
@@ -104,11 +104,11 @@ public class Solver
         return true;
     }
 
-    private bool CheckExcluded(string word)
+    private bool CheckExcluded(WordListItem word)
     {
-        for (var i = 0; i < word.Length; i++)
+        for (var i = 0; i < word.Word.Length; i++)
         {
-            if (_excluded.Contains(word[i]))
+            if (_excluded.Contains(word.Word[i]))
             {
                 return false;
             }

@@ -65,7 +65,7 @@ public class StartWordFinder
 
                 foreach (var expectedWord in _wordList.Words)
                 {
-                    PlayGame(solver, startWord, expectedWord, ref rounds, ref totalSteps, ref fails);
+                    PlayGame(solver, startWord.Word, expectedWord.Word, ref rounds, ref totalSteps, ref fails);
                 }
                 
                 var meanSteps = (float) totalSteps / rounds;
@@ -82,7 +82,7 @@ public class StartWordFinder
                     {
                         _lowestMeanSteps = meanSteps;
 
-                        _lowestMeanStepsWord = startWord;
+                        _lowestMeanStepsWord = startWord.Word;
 
                         isLowestMean = true;
                     }
@@ -91,7 +91,7 @@ public class StartWordFinder
                     {
                         _lowestFails = fails;
 
-                        _lowestFailsWord = startWord;
+                        _lowestFailsWord = startWord.Word;
 
                         isLowestFails = true;
                     }
@@ -101,7 +101,7 @@ public class StartWordFinder
                 
                 var builder = new StringBuilder();
 
-                builder.Append($"  &Cyan;{startWord.ToUpper()}");
+                builder.Append($"  &Cyan;{startWord.Word.ToUpper()}");
 
                 builder.Append($"  &Green;Mean Steps&White;: {(isLowestMean ? "&Green;" : "&Gray;")}{meanSteps:N4}");
 
