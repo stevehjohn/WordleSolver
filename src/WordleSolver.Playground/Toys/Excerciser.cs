@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using WordleSolver.Infrastructure;
-using static System.Console;
+using static WordleSolver.Common.Console;
 
 namespace WordleSolver.Playground.Toys;
 
@@ -29,11 +29,11 @@ public class Excerciser
 
     public void RunAgainstAllWords()
     {
-        ForegroundColor = ConsoleColor.Cyan;
+        var currentColour = ForegroundColor;
         
-        WriteLine();
-        WriteLine("  Playing all words!");
-        WriteLine();
+        OutputLine();
+        OutputLine("  &Cyan;Playing all words!");
+        OutputLine();
 
         var stopwatch = Stopwatch.StartNew();
 
@@ -66,20 +66,18 @@ public class Excerciser
         
         stopwatch.Stop();
         
-        ForegroundColor = ConsoleColor.Cyan;
-        
-        WriteLine();
-        WriteLine($"  Rounds Played: {_rounds}");
-        WriteLine($"  Failures:      {_fails} ({(float) _fails / _rounds:N2}%)");
-        WriteLine($"  Max Steps:     {_maxSteps}");
-        WriteLine($"  Min Steps:     {_minSteps}");
-        WriteLine($"  Mean Steps:    {(float) _totalSteps / _rounds:N2}");
-        WriteLine($"  Time Taken:    {stopwatch.Elapsed.TotalMilliseconds:N2}ms");
-        WriteLine();
-        WriteLine("  Cheers!");
-        WriteLine();
+        OutputLine();
+        OutputLine($"  &Cyan;Rounds Played&White;: &Yellow;{_rounds}");
+        OutputLine($"  &Cyan;Failures&White;:      &Yellow;{_fails} ({(float) _fails / _rounds:N2}%)");
+        OutputLine($"  &Cyan;Max Steps&White;:     &Yellow;{_maxSteps}");
+        OutputLine($"  &Cyan;Min Steps&White;:     &Yellow;{_minSteps}");
+        OutputLine($"  &Cyan;Mean Steps&White;:    &Yellow;{(float) _totalSteps / _rounds:N2}");
+        OutputLine($"  &Cyan;Time Taken&White;:    &Yellow;{stopwatch.Elapsed.TotalMilliseconds:N2}ms");
+        OutputLine();
+        OutputLine("  &Cyan;Cheers&White;!");
+        OutputLine();
 
-        ForegroundColor = ConsoleColor.Green;
+        ForegroundColor = currentColour;
     }
 
     private void PlayGame(Solver solver, string expected)
@@ -89,12 +87,16 @@ public class Excerciser
         var steps = 0;
         
         solver.Reset();
+
+        var builder = new StringBuilder();
         
         while (true)
         {
             steps++;
             
-            var (result, nextWord) = PlayStep(solver, expected, word);
+            var (result, nextWord, output) = PlayStep(solver, expected, word);
+
+            builder.Append(output);
 
             if (result == StepResult.Failed)
             {
@@ -129,17 +131,22 @@ public class Excerciser
         _totalSteps += steps;
 
         _rounds++;
+
+        lock (_lock)
+        {
+            OutputLine(builder.ToString());
+        }
     }
 
     private (StepResult Result, string NextWord, string output) PlayStep(Solver solver, string expected, string word)
     {
-        Write("  ");
-
         expected = expected.ToUpper();
 
         word = word.ToUpper();
 
         var builder = new StringBuilder();
+
+        builder.Append("  ");
         
         for (var i = 0; i < 5; i++)
         {

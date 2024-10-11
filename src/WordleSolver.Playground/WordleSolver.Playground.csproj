@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\WordleSolver.Common\WordleSolver.Common.csproj" />
       <ProjectReference Include="..\WordleSolver\WordleSolver.csproj" />
     </ItemGroup>
 
