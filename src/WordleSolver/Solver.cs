@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using WordleSolver.Extensions;
 using WordleSolver.Infrastructure;
 
 namespace WordleSolver;
@@ -74,7 +75,7 @@ public class Solver
             matches.Add(word);
         }
         
-        return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m);
+        return matches.OrderByDescending(word => word.CountDistinctCharacters()).ThenBy(m => m);
     }
     
     private bool CheckCorrect(string word)
