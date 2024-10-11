@@ -153,7 +153,7 @@ public class Excerciser
         }
     }
 
-    private (StepResult Result, string NextWord, string output) PlayStep(Solver solver, string expected, string word)
+    private static (StepResult Result, string NextWord, string output) PlayStep(Solver solver, string expected, string word)
     {
         expected = expected.ToUpper();
 
