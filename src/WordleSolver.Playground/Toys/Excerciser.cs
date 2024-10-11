@@ -38,6 +38,7 @@ public class Excerciser
 
         for (var i = 0; i < MaxThreads; i++)
         {
+            // ReSharper disable once InconsistentlySynchronizedField
             _solvers.Push(new Solver(WordSet.Scrabble));
         }
 
