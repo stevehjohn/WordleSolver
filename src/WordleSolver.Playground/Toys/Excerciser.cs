@@ -8,9 +8,9 @@ namespace WordleSolver.Playground.Toys;
 [ExcludeFromCodeCoverage]
 public class Excerciser
 {
+    private const int MaxThreads = 20;
+    
     private readonly WordList _wordList = new(WordSet.Scrabble);
-
-    private readonly Solver _solver = new(WordSet.Scrabble);
 
     private int _rounds;
 
@@ -22,6 +22,10 @@ public class Excerciser
 
     private int _maxSteps;
     
+    private readonly Stack<Solver> _solvers = new();
+
+    private readonly object _lock = new();
+
     public void RunAgainstAllWords()
     {
         ForegroundColor = ConsoleColor.Cyan;
@@ -31,11 +35,32 @@ public class Excerciser
         WriteLine();
 
         var stopwatch = Stopwatch.StartNew();
-        
-        foreach (var word in _wordList.Words)
+
+        for (var i = 0; i < MaxThreads; i++)
         {
-            PlayGame(word);
+            _solvers.Push(new Solver(WordSet.Scrabble));
         }
+
+        Parallel.ForEach(
+            _wordList.Words,
+            new ParallelOptions { MaxDegreeOfParallelism = 20 },
+            word =>
+            {
+                
+                Solver solver;
+                
+                lock (_lock)
+                {
+                    solver = _solvers.Pop();
+                }
+
+                PlayGame(solver, word);
+                
+                lock (_lock)
+                {
+                    _solvers.Push(solver);
+                }
+            });
         
         stopwatch.Stop();
         
@@ -55,19 +80,19 @@ public class Excerciser
         ForegroundColor = ConsoleColor.Green;
     }
 
-    private void PlayGame(string expected)
+    private void PlayGame(Solver solver, string expected)
     {
         var word = "SLANT";
         
         var steps = 0;
         
-        _solver.Reset();
+        solver.Reset();
         
         while (true)
         {
             steps++;
             
-            var (result, nextWord) = PlayStep(expected, word);
+            var (result, nextWord) = PlayStep(solver, expected, word);
 
             if (result == StepResult.Failed)
             {
@@ -104,7 +129,7 @@ public class Excerciser
         _rounds++;
     }
 
-    private (StepResult Result, string NextWord) PlayStep(string expected, string word)
+    private (StepResult Result, string NextWord) PlayStep(Solver solver, string expected, string word)
     {
         Write("  ");
 
@@ -120,7 +145,7 @@ public class Excerciser
                 
                 Write(expected[i]);
                 
-                _solver.SetCorrect(expected[i], i);
+                solver.SetCorrect(expected[i], i);
                 
                 continue;
             }
@@ -131,7 +156,7 @@ public class Excerciser
                 
                 Write(word[i]);
                 
-                _solver.AddIncorrect(word[i], i);
+                solver.AddIncorrect(word[i], i);
                 
                 continue;
             }
@@ -140,12 +165,12 @@ public class Excerciser
                 
             Write(word[i]);
             
-            _solver.AddExcluded(word[i]);
+            solver.AddExcluded(word[i]);
         }
 
         ForegroundColor = ConsoleColor.Green;
 
-        var matches = _solver.GetMatches();
+        var matches = solver.GetMatches();
 
         if (matches.Count == 0)
         {
