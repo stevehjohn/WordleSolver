@@ -204,7 +204,9 @@ public class StartWordFinder
             solver.AddExcluded(word[i]);
         }
 
-        var match = solver.GetFirstMatch();
+        var matches = solver.GetMatches();
+
+        var match = matches.FirstOrDefault();
 
         if (match == null)
         {
