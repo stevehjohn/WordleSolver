@@ -190,20 +190,22 @@ public class Excerciser
 
         var matches = solver.GetMatches();
 
-        if (matches.Count == 0)
+        var match = matches.FirstOrDefault();
+
+        if (match == null)
         {
             builder.Append($"  &Magenta;{expected}");
             
             return (StepResult.Failed, null, builder.ToString());
         }
 
-        if (matches.First().Equals(expected, StringComparison.InvariantCultureIgnoreCase))
+        if (match.Equals(expected, StringComparison.InvariantCultureIgnoreCase))
         {
             builder.Append($"  &Green;{expected}");
             
             return (StepResult.Solved, null, builder.ToString());
         }
 
-        return (StepResult.Continue, matches.First(), builder.ToString());
+        return (StepResult.Continue, match, builder.ToString());
     }
 }

@@ -50,7 +50,7 @@ public class Solver
         _excluded.Clear();
     }
 
-    public List<string> GetMatches()
+    public IEnumerable<string> GetMatches()
     {
         var matches = new List<string>();
 
@@ -74,7 +74,7 @@ public class Solver
             matches.Add(word);
         }
         
-        return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m).ToList();
+        return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m);
     }
     
     private bool CheckCorrect(string word)

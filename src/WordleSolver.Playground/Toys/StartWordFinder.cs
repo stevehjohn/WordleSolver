@@ -206,16 +206,18 @@ public class StartWordFinder
 
         var matches = solver.GetMatches();
 
-        if (matches.Count == 0)
+        var match = matches.FirstOrDefault();
+
+        if (match == null)
         {
             return (StepResult.Failed, null);
         }
 
-        if (matches.First().Equals(expected, StringComparison.InvariantCultureIgnoreCase))
+        if (match.Equals(expected, StringComparison.InvariantCultureIgnoreCase))
         {
             return (StepResult.Solved, null);
         }
 
-        return (StepResult.Continue, matches.First());
+        return (StepResult.Continue, match);
     }
 }
