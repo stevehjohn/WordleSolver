@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using WordleSolver.Extensions;
 using WordleSolver.Infrastructure;
 using static WordleSolver.Common.Console;
 
@@ -194,7 +195,7 @@ public class StartWordFinder
                 continue;
             }
 
-            if (expected.Contains(word[i]))
+            if (expected.ContainsCharacter(word[i]))
             {
                 solver.AddIncorrect(word[i], i);
                 
