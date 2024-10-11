@@ -38,7 +38,7 @@ public class StartWordFinder
 
         var stopwatch = Stopwatch.StartNew();
 
-        var maxThreads = Environment.ProcessorCount / 4 * 3;
+        var maxThreads = Environment.ProcessorCount - 1;
         
         for (var i = 0; i < maxThreads; i++)
         {
@@ -135,9 +135,9 @@ public class StartWordFinder
         ForegroundColor = ConsoleColor.Cyan;
         
         OutputLine();
-        OutputLine($"  &Cyan;Lowest mean steps&White;: &Green;{_lowestMeanStepsWord} &White;(&Green;{_lowestMeanSteps:N4}&White;)");
+        OutputLine($"  &Cyan;Lowest mean steps&White;: &Green;{_lowestMeanStepsWord.ToUpper()} &White;(&Green;{_lowestMeanSteps:N4}&White;)");
         OutputLine();
-        OutputLine($"  &Cyan;Lowest failures&White;:   &Yellow;{_lowestFailsWord} &White;(&Yellow;{_lowestFails:N0}&White;)");
+        OutputLine($"  &Cyan;Lowest failures&White;:   &Yellow;{_lowestFailsWord.ToUpper()} &White;(&Yellow;{_lowestFails:N0}&White;)");
         OutputLine();
         OutputLine($"  &Cyan;Time Taken&White;:        &Cyan;{stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes:D2}.{stopwatch.Elapsed.Seconds:D2}");
         OutputLine();
