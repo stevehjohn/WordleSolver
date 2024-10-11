@@ -37,7 +37,7 @@ public class StartWordFinder
 
         var stopwatch = Stopwatch.StartNew();
 
-        var maxThreads = Environment.ProcessorCount - 1;
+        var maxThreads = Environment.ProcessorCount / 4 * 3;
         
         for (var i = 0; i < maxThreads; i++)
         {
