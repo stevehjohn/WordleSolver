@@ -104,7 +104,7 @@ public class StartWordFinder
 
                 builder.Append($"  &Green;Mean Steps&White;: {(isLowestMean ? "&Green;" : "&Gray;")}{meanSteps:N4}");
 
-                builder.Append($"  &Yellow;Fails&White;: {(isLowestFails ? "&Green;" : "&Gray;")}{fails,5:N0}");
+                builder.Append($"  &Yellow;Fails&White;: {(isLowestFails ? "&Yellow;" : "&Gray;")}{fails,5:N0}");
 
                 builder.Append($"  &Green;{_lowestMeanStepsWord}");
 
