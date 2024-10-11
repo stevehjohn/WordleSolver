@@ -10,7 +10,7 @@ public class StartWordFinder
 {
     private const int MaxThreads = 20;
     
-    private const WordSet WordSet = Infrastructure.WordSet.Comprehensive;
+    private const WordSet WordSet = Infrastructure.WordSet.Scrabble;
 
     private readonly WordList _wordList = new(WordSet);
 
