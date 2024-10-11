@@ -9,11 +9,11 @@ public class Solver
 
     internal int WordCount => _wordList.WordCount;
     
-    private readonly HashSet<Tile> _correct = [];
+    private readonly List<Tile> _correct = [];
 
-    private readonly HashSet<Tile> _incorrect = [];
+    private readonly List<Tile> _incorrect = [];
 
-    private readonly HashSet<char> _excluded = [];
+    private readonly List<char> _excluded = [];
 
     private readonly int _length;
     
