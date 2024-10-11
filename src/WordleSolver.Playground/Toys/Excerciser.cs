@@ -52,7 +52,6 @@ public class Excerciser
             new ParallelOptions { MaxDegreeOfParallelism = maxThreads },
             word =>
             {
-                
                 Solver solver;
                 
                 lock (_lock)
