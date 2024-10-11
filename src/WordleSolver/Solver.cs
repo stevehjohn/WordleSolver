@@ -50,9 +50,9 @@ public class Solver
         _excluded.Clear();
     }
 
-    public HashSet<string> GetMatches()
+    public List<string> GetMatches()
     {
-        var matches = new HashSet<string>();
+        var matches = new List<string>();
 
         foreach (var word in _wordList.Words)
         {
@@ -74,7 +74,46 @@ public class Solver
             matches.Add(word);
         }
         
-        return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m).ToHashSet();
+        return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m).ToList();
+    }
+    
+    private bool CheckCorrect(string word)
+    {
+        foreach (var tile in _correct)
+        {
+            if (word[tile.Position] != tile.Character)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool CheckIncorrect(string word)
+    {
+        foreach (var tile in _incorrect)
+        {
+            if (word[tile.Position] == tile.Character || ! word.Contains(tile.Character))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool CheckExcluded(string word)
+    {
+        foreach (var letter in word)
+        {
+            if (_excluded.Contains(letter))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     [ExcludeFromCodeCoverage]
@@ -115,44 +154,5 @@ public class Solver
         }
 
         Console.ForegroundColor = colour;
-    }
-
-    private bool CheckCorrect(string word)
-    {
-        foreach (var tile in _correct)
-        {
-            if (word[tile.Position] != tile.Character)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private bool CheckIncorrect(string word)
-    {
-        foreach (var tile in _incorrect)
-        {
-            if (word[tile.Position] == tile.Character || ! word.Contains(tile.Character))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private bool CheckExcluded(string word)
-    {
-        foreach (var letter in word)
-        {
-            if (_excluded.Contains(letter))
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
