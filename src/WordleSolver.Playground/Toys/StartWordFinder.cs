@@ -120,7 +120,7 @@ public class StartWordFinder
                 }
                 else
                 {
-                    builder.Append($"  &Cyan;&White;ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
+                    builder.Append($"  &Cyan;ETR&White;: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
                 }
                 
                 lock (_lock)
