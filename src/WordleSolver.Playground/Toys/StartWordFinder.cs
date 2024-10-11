@@ -15,12 +15,6 @@ public class StartWordFinder
     private readonly WordList _wordList = new(WordSet);
 
     private int _totalRounds;
-    
-    private int _rounds;
-
-    private int _totalSteps;
-
-    private int _fails;
 
     private int _lowestFails = int.MaxValue;
 
@@ -54,11 +48,11 @@ public class StartWordFinder
             new ParallelOptions { MaxDegreeOfParallelism = MaxThreads },
             startWord =>
             {
-                _rounds = 0;
+                var rounds = 0;
 
-                _totalSteps = 0;
+                var totalSteps = 0;
 
-                _fails = 0;
+                var fails = 0;
 
                 Solver solver;
                 
@@ -69,7 +63,7 @@ public class StartWordFinder
 
                 foreach (var expectedWord in _wordList.Words)
                 {
-                    PlayGame(solver, startWord, expectedWord);
+                    PlayGame(solver, startWord, expectedWord, ref rounds, ref totalSteps, ref fails);
                 }
 
                 lock (_lock)
@@ -81,7 +75,7 @@ public class StartWordFinder
                 {
                     Write($"  {startWord}");
 
-                    var meanSteps = (float) _totalSteps / _rounds;
+                    var meanSteps = (float) totalSteps / rounds;
 
                     ForegroundColor = ConsoleColor.Green;
 
@@ -106,16 +100,16 @@ public class StartWordFinder
 
                     ForegroundColor = ConsoleColor.Gray;
 
-                    if (_fails < _lowestFails)
+                    if (fails < _lowestFails)
                     {
-                        _lowestFails = _fails;
+                        _lowestFails = fails;
 
                         _lowestFailsWord = startWord;
 
                         ForegroundColor = ConsoleColor.Yellow;
                     }
 
-                    Write($"{_fails,5:N0}");
+                    Write($"{fails,5:N0}");
 
                     ForegroundColor = ConsoleColor.Gray;
 
@@ -165,7 +159,7 @@ public class StartWordFinder
         ForegroundColor = ConsoleColor.Green;
     }
 
-    private void PlayGame(Solver solver, string word, string expected)
+    private static void PlayGame(Solver solver, string word, string expected, ref int rounds, ref int totalSteps, ref int fails)
     {
         var steps = 0;
         
@@ -179,7 +173,7 @@ public class StartWordFinder
 
             if (result == StepResult.Failed)
             {
-                _fails++;
+                fails++;
                 
                 break;
             }
@@ -194,12 +188,12 @@ public class StartWordFinder
 
         if (steps > 6)
         {
-            _fails++;
+            fails++;
         }
 
-        _totalSteps += steps;
+        totalSteps += steps;
 
-        _rounds++;
+        rounds++;
     }
 
     private static (StepResult Result, string NextWord) PlayStep(Solver solver, string expected, string word)
