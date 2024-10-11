@@ -1,26 +1,19 @@
+using System.Numerics;
+
 namespace WordleSolver.Extensions;
 
 public static class StringExtensions
 {
     public static int CountDistinctCharacters(this string word)
     {
-        var bits = 0L;
-            
-        var count = 0;
+        var bits = 0ul;
             
         for (var i = 0; i < word.Length; i++)
         {
-            var mask = 1L << (word[i] & 63);
-                
-            if ((bits & mask) == 0)
-            {
-                bits |= mask;
-                    
-                count++;
-            }
+            bits |= 1ul << (word[i] - 'A');
         }
 
-        return count;
+        return BitOperations.PopCount(bits);
     }
 
     public static bool ContainsCharacter(this string word, char character)
