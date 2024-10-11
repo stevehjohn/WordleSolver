@@ -68,7 +68,7 @@ public class Excerciser
         
         OutputLine();
         OutputLine($"  &Cyan;Rounds Played&White;: &Yellow;{_rounds}");
-        OutputLine($"  &Cyan;Failures&White;:      &Yellow;{_fails} ({(float) _fails / _rounds:N2}%)");
+        OutputLine($"  &Cyan;Failures&White;:      &Yellow;{_fails} ({(float) _fails / _rounds * 100:N2}%)");
         OutputLine($"  &Cyan;Max Steps&White;:     &Yellow;{_maxSteps}");
         OutputLine($"  &Cyan;Min Steps&White;:     &Yellow;{_minSteps}");
         OutputLine($"  &Cyan;Mean Steps&White;:    &Yellow;{(float) _totalSteps / _rounds:N2}");
