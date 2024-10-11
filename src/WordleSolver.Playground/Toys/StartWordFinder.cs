@@ -200,7 +200,7 @@ public class StartWordFinder
         _rounds++;
     }
 
-    private (StepResult Result, string NextWord) PlayStep(Solver solver, string expected, string word)
+    private static (StepResult Result, string NextWord) PlayStep(Solver solver, string expected, string word)
     {
         expected = expected.ToUpper();
 
