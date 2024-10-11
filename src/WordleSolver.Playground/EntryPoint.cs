@@ -8,7 +8,7 @@ public static class EntryPoint
 {
     public static void Main(string[] arguments)
     {
-        if (arguments.Length > 0 && arguments[0] == "finder")
+        if (arguments.Length > 0 && arguments[0].ToLower() == "finder")
         {
             var finder = new StartWordFinder();
         
