@@ -22,4 +22,17 @@ public static class StringExtensions
 
         return count;
     }
+
+    public static bool ContainsCharacter(this string word, char character)
+    {
+        for (var i = 0; i < word.Length; i++)
+        {
+            if (word[i] == character)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

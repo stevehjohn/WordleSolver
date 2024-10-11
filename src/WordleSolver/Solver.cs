@@ -95,7 +95,7 @@ public class Solver
     {
         foreach (var tile in _incorrect)
         {
-            if (word[tile.Position] == tile.Character || word.IndexOf(tile.Character) == -1)
+            if (word[tile.Position] == tile.Character || ! word.ContainsCharacter(tile.Character))
             {
                 return false;
             }
