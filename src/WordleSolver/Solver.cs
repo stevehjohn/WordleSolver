@@ -9,11 +9,11 @@ public class Solver
 
     internal int WordCount => _wordList.WordCount;
     
-    private readonly List<Tile> _correct = [];
+    private readonly HashSet<Tile> _correct = [];
 
-    private readonly List<Tile> _incorrect = [];
+    private readonly HashSet<Tile> _incorrect = [];
 
-    private readonly List<char> _excluded = [];
+    private readonly HashSet<char> _excluded = [];
 
     private readonly int _length;
     
@@ -28,8 +28,6 @@ public class Solver
 
     public void SetCorrect(char letter, int position)
     {
-        _correct.RemoveAll(t => t.Position == position);
-        
         _correct.Add(new Tile(char.ToLower(letter), position));
     }
 
