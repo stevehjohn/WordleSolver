@@ -1,7 +1,8 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using WordleSolver.Infrastructure;
-using static System.Console;
+using static WordleSolver.Common.Console;
 
 namespace WordleSolver.Playground.Toys;
 
@@ -32,9 +33,9 @@ public class StartWordFinder
     {
         ForegroundColor = ConsoleColor.Gray;
         
-        WriteLine();
-        WriteLine("  Playing all words!");
-        WriteLine();
+        OutputLine();
+        OutputLine("  &Cyan;Playing all words&White;!");
+        OutputLine();
 
         var stopwatch = Stopwatch.StartNew();
 
@@ -65,80 +66,66 @@ public class StartWordFinder
                 {
                     PlayGame(solver, startWord, expectedWord, ref rounds, ref totalSteps, ref fails);
                 }
+                
+                var meanSteps = (float) totalSteps / rounds;
 
+                var isLowestMean = false;
+
+                var isLowestFails = false;
+                
                 lock (_lock)
                 {
                     _solvers.Push(solver);
-                }
-
-                lock (_lock)
-                {
-                    Write($"  {startWord}");
-
-                    var meanSteps = (float) totalSteps / rounds;
-
-                    ForegroundColor = ConsoleColor.Green;
-
-                    Write("  Mean Steps: ");
-
-                    ForegroundColor = ConsoleColor.Gray;
-
+                    
                     if (meanSteps < _lowestMeanSteps)
                     {
                         _lowestMeanSteps = meanSteps;
 
                         _lowestMeanStepsWord = startWord;
 
-                        ForegroundColor = ConsoleColor.Green;
+                        isLowestMean = true;
                     }
-
-                    Write($"{meanSteps:N4}  ");
-
-                    ForegroundColor = ConsoleColor.Yellow;
-
-                    Write("Fails: ");
-
-                    ForegroundColor = ConsoleColor.Gray;
-
+                    
                     if (fails < _lowestFails)
                     {
                         _lowestFails = fails;
 
                         _lowestFailsWord = startWord;
 
-                        ForegroundColor = ConsoleColor.Yellow;
+                        isLowestFails = true;
                     }
-
-                    Write($"{fails,5:N0}");
-
-                    ForegroundColor = ConsoleColor.Gray;
 
                     _totalRounds++;
+                }
+                
+                var builder = new StringBuilder();
 
-                    ForegroundColor = ConsoleColor.Green;
+                builder.Append($"  &Cyan;{startWord}");
 
-                    Write($"  {_lowestMeanStepsWord}");
+                builder.Append($"  &Green;Mean Steps&White;: {(isLowestMean ? "&Green;" : "&Gray;")}{meanSteps:N4}");
 
-                    ForegroundColor = ConsoleColor.Yellow;
+                builder.Append($"  &Yellow;Fails&White;: {(isLowestFails ? "&Green;" : "&Gray;")}{fails,5:N0}");
 
-                    Write($"  {_lowestFailsWord}");
+                builder.Append($"  &Green;{_lowestMeanStepsWord}");
 
-                    ForegroundColor = ConsoleColor.Gray;
+                builder.Append($"  &Yellow;{_lowestFailsWord}");
 
-                    var remainingSeconds = (int) (stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds));
+                var remainingSeconds = (int) (stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds));
 
-                    var remaining = TimeSpan.FromSeconds(remainingSeconds);
+                var remaining = TimeSpan.FromSeconds(remainingSeconds);
 
-                    if (remaining.Days > 0)
-                    {
-                        Write($"  ETR: {remaining.Days}d {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
-                    }
-                    else
-                    {
-                        Write($"  ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
-                    }
-
-                    WriteLine();
+                if (remaining.Days > 0)
+                {
+                    builder.Append($"  &Cyan;ETR&White;: {remaining.Days}d {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
+                }
+                else
+                {
+                    builder.Append($"  &Cyan;&White;ETR: {remaining.Hours:D2}:{remaining.Minutes:D2}.{remaining.Seconds:D2} ({_totalRounds} / {_wordList.Words.Count})");
+                }
+                
+                lock (_lock)
+                {
+                    OutputLine(builder.ToString());
                 }
             });
         
@@ -146,15 +133,15 @@ public class StartWordFinder
         
         ForegroundColor = ConsoleColor.Cyan;
         
-        WriteLine();
-        WriteLine($"  Lowest failures:   {_lowestFailsWord} ({_lowestFails:N0})");
-        WriteLine();
-        WriteLine($"  Lowest mean steps: {_lowestMeanStepsWord} ({_lowestMeanSteps:N4})");
-        WriteLine();
-        WriteLine($"  Time Taken:        {stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes:D2}.{stopwatch.Elapsed.Seconds:D2}");
-        WriteLine();
-        WriteLine("  Cheers!");
-        WriteLine();
+        OutputLine();
+        OutputLine($"  &Cyan;Lowest mean steps&White;: &Green;{_lowestMeanStepsWord} &White;(&Green;{_lowestMeanSteps:N4}&White;)");
+        OutputLine();
+        OutputLine($"  &Cyan;Lowest failures&White;:   &Yellow;{_lowestFailsWord} &White;(&Yellow;{_lowestFails:N0}&White;)");
+        OutputLine();
+        OutputLine($"  &Cyan;Time Taken&White;:        &Cyan;{stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes:D2}.{stopwatch.Elapsed.Seconds:D2}");
+        OutputLine();
+        OutputLine("  &Cyan;Cheers&White;!");
+        OutputLine();
 
         ForegroundColor = ConsoleColor.Green;
     }
