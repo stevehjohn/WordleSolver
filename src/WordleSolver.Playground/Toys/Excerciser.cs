@@ -134,9 +134,10 @@ public class Excerciser
                 _fails++;
             }
 
+            OutputLine(builder.ToString());
+
             _totalSteps += steps;
 
-            OutputLine(builder.ToString());
         }
     }
 
@@ -179,7 +180,7 @@ public class Excerciser
 
         if (matches.Count == 0)
         {
-            builder.Append($"  &Magents;{expected}");
+            builder.Append($"  &Magenta;{expected}");
             
             return (StepResult.Failed, null, builder.ToString());
         }
