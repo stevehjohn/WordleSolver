@@ -145,9 +145,9 @@ public class Solver
 
     private bool CheckExcluded(string word)
     {
-        foreach (var letter in _excluded)
+        foreach (var letter in word)
         {
-            if (word.Contains(letter))
+            if (_excluded.Contains(letter))
             {
                 return false;
             }
