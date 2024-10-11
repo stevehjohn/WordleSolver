@@ -10,14 +10,18 @@ namespace WordleSolver.Playground.Toys;
 public class Excerciser
 {
     private const int MaxThreads = 20;
+
+    private const WordSet WordSet = Infrastructure.WordSet.Comprehensive;
     
-    private readonly WordList _wordList = new(WordSet.Comprehensive);
+    private readonly WordList _wordList = new(WordSet);
 
     private int _rounds;
 
     private int _totalSteps;
 
-    private int _fails;
+    private int _notFound;
+
+    private int _overStepLimit;
 
     private int _minSteps = int.MaxValue;
 
@@ -40,7 +44,7 @@ public class Excerciser
         for (var i = 0; i < MaxThreads; i++)
         {
             // ReSharper disable once InconsistentlySynchronizedField
-            _solvers.Push(new Solver(WordSet.Scrabble));
+            _solvers.Push(new Solver(WordSet));
         }
 
         Parallel.ForEach(
@@ -65,14 +69,18 @@ public class Excerciser
             });
         
         stopwatch.Stop();
+
+        var fails = _notFound + _overStepLimit;
         
         OutputLine();
-        OutputLine($"  &Cyan;Rounds Played&White;: &Yellow;{_rounds}");
-        OutputLine($"  &Cyan;Failures&White;:      &Yellow;{_fails} ({(float) _fails / _rounds * 100:N2}%)");
-        OutputLine($"  &Cyan;Max Steps&White;:     &Yellow;{_maxSteps}");
-        OutputLine($"  &Cyan;Min Steps&White;:     &Yellow;{_minSteps}");
-        OutputLine($"  &Cyan;Mean Steps&White;:    &Yellow;{(float) _totalSteps / _rounds:N2}");
-        OutputLine($"  &Cyan;Time Taken&White;:    &Yellow;{stopwatch.Elapsed.TotalMilliseconds:N2}ms");
+        OutputLine($"  &Cyan;Rounds Played&White;:      &Yellow;{_rounds}");
+        OutputLine($"  &Cyan;Failures&White;:           &Yellow;{fails} ({(float) fails / _rounds * 100:N2}%)");
+        OutputLine($"    &Cyan;Not Found&White;:        &Yellow;{_notFound}");
+        OutputLine($"    &Cyan;Over Step Limit&White;:  &Yellow;{_overStepLimit}");
+        OutputLine($"  &Cyan;Max Steps&White;:          &Yellow;{_maxSteps}");
+        OutputLine($"  &Cyan;Min Steps&White;:          &Yellow;{_minSteps}");
+        OutputLine($"  &Cyan;Mean Steps&White;:         &Yellow;{(float) _totalSteps / _rounds:N2}");
+        OutputLine($"  &Cyan;Time Taken&White;:         &Yellow;{stopwatch.Elapsed.TotalMilliseconds:N2}ms");
         OutputLine();
         OutputLine("  &Cyan;Cheers&White;!");
         OutputLine();
@@ -129,9 +137,14 @@ public class Excerciser
                 _minSteps = steps;
             }
 
-            if (steps > 6 || failed)
+            if (failed)
             {
-                _fails++;
+                _notFound++;
+            }
+
+            if (steps > 6)
+            {
+                _overStepLimit++;
             }
 
             OutputLine(builder.ToString());
