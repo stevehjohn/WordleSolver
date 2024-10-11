@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using WordleSolver.Infrastructure;
 using static System.Console;
 
@@ -130,21 +131,21 @@ public class Excerciser
         _rounds++;
     }
 
-    private (StepResult Result, string NextWord) PlayStep(Solver solver, string expected, string word)
+    private (StepResult Result, string NextWord, string output) PlayStep(Solver solver, string expected, string word)
     {
         Write("  ");
 
         expected = expected.ToUpper();
 
         word = word.ToUpper();
+
+        var builder = new StringBuilder();
         
         for (var i = 0; i < 5; i++)
         {
             if (expected[i] == word[i])
             {
-                ForegroundColor = ConsoleColor.Green;
-                
-                Write(expected[i]);
+                builder.Append($"&Green;{expected[i]}");
                 
                 solver.SetCorrect(expected[i], i);
                 
@@ -153,44 +154,34 @@ public class Excerciser
 
             if (expected.Contains(word[i]))
             {
-                ForegroundColor = ConsoleColor.Yellow;
-                
-                Write(word[i]);
+                builder.Append($"&Yellow;{word[i]}");
                 
                 solver.AddIncorrect(word[i], i);
                 
                 continue;
             }
 
-            ForegroundColor = ConsoleColor.Gray;
-                
-            Write(word[i]);
+            builder.Append($"&Gray;{word[i]}");
             
             solver.AddExcluded(word[i]);
         }
-
-        ForegroundColor = ConsoleColor.Green;
 
         var matches = solver.GetMatches();
 
         if (matches.Count == 0)
         {
-            ForegroundColor = ConsoleColor.Magenta;
+            builder.Append($"  &Magents;{expected}");
             
-            WriteLine($"  {expected}");
-            
-            return (StepResult.Failed, null);
+            return (StepResult.Failed, null, builder.ToString());
         }
 
         if (matches.First().Equals(expected, StringComparison.InvariantCultureIgnoreCase))
         {
-            ForegroundColor = ConsoleColor.Green;
+            builder.Append($"  &Green;{expected}");
             
-            WriteLine($"  {expected}");
-            
-            return (StepResult.Solved, null);
+            return (StepResult.Solved, null, builder.ToString());
         }
 
-        return (StepResult.Continue, matches.First());
+        return (StepResult.Continue, matches.First(), builder.ToString());
     }
 }
