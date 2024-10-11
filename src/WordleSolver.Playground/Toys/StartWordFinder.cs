@@ -10,7 +10,9 @@ public class StartWordFinder
 {
     private const int MaxThreads = 20;
     
-    private readonly WordList _wordList = new(WordSet.Scrabble);
+    private const WordSet WordSet = Infrastructure.WordSet.Comprehensive;
+
+    private readonly WordList _wordList = new(WordSet);
 
     private int _totalRounds;
     
@@ -44,7 +46,7 @@ public class StartWordFinder
 
         for (var i = 0; i < MaxThreads; i++)
         {
-            _solvers.Push(new Solver(WordSet.Scrabble));
+            _solvers.Push(new Solver(WordSet));
         }
 
         Parallel.ForEach(
