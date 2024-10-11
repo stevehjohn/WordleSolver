@@ -4,9 +4,11 @@ public class WordList
 {
     private readonly List<WordListItem> _words = [];
 
-    public IReadOnlyList<WordListItem> Words => _words;
-
+    private readonly Dictionary<char, int> _frequencies = [];
+    
     internal int WordCount => _words.Count;
+
+    public IReadOnlyList<WordListItem> Words => _words;
     
     public WordList(WordSet wordSet, int length = 5)
     {
@@ -46,9 +48,29 @@ public class WordList
             }
         }
 
+        for (var c = 'a'; c <= 'z'; c++)
+        {
+            _frequencies.Add(c, 0);
+        }
+
+        foreach (var word in list)
+        {
+            foreach (var character in word)
+            {
+                _frequencies[character]++;
+            }
+        }
+        
         foreach (var word in list.Order())
         {
-            _words.Add(new WordListItem(word));
+            var score = 0;
+            
+            foreach (var character in word)
+            {
+                score += _frequencies[character];
+            }
+            
+            _words.Add(new WordListItem(word, score));
         }
     }
 }

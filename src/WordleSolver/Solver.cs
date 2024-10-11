@@ -53,7 +53,7 @@ public class Solver
 
     public IEnumerable<string> GetMatches()
     {
-        var matches = new List<string>();
+        var matches = new List<WordListItem>();
 
         foreach (var word in _wordList.Words)
         {
@@ -72,10 +72,10 @@ public class Solver
                 continue;
             }
 
-            matches.Add(word.Word);
+            matches.Add(word);
         }
         
-        return matches.OrderByDescending(word => word.CountDistinctCharacters()).ThenBy(m => m);
+        return matches.OrderByDescending(word => word.Word.CountDistinctCharacters()).ThenBy(word => word.Score).ThenBy(word => word.Word).Select(word => word.Word);
     }
     
     private bool CheckCorrect(WordListItem word)
