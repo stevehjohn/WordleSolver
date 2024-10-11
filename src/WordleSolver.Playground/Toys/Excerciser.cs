@@ -9,8 +9,6 @@ namespace WordleSolver.Playground.Toys;
 [ExcludeFromCodeCoverage]
 public class Excerciser
 {
-    private const int MaxThreads = 20;
-
     private const WordSet WordSet = Infrastructure.WordSet.Comprehensive;
     
     private readonly WordList _wordList = new(WordSet);
@@ -39,9 +37,11 @@ public class Excerciser
         OutputLine("  &Cyan;Playing all words!");
         OutputLine();
 
+        var maxThreads = Environment.ProcessorCount - 1;
+
         var stopwatch = Stopwatch.StartNew();
 
-        for (var i = 0; i < MaxThreads; i++)
+        for (var i = 0; i < maxThreads; i++)
         {
             // ReSharper disable once InconsistentlySynchronizedField
             _solvers.Push(new Solver(WordSet));
@@ -49,7 +49,7 @@ public class Excerciser
 
         Parallel.ForEach(
             _wordList.Words,
-            new ParallelOptions { MaxDegreeOfParallelism = 20 },
+            new ParallelOptions { MaxDegreeOfParallelism = maxThreads },
             word =>
             {
                 

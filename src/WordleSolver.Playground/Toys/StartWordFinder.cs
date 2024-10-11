@@ -9,8 +9,6 @@ namespace WordleSolver.Playground.Toys;
 [ExcludeFromCodeCoverage]
 public class StartWordFinder
 {
-    private const int MaxThreads = 20;
-    
     private const WordSet WordSet = Infrastructure.WordSet.Scrabble;
 
     private readonly WordList _wordList = new(WordSet);
@@ -39,14 +37,16 @@ public class StartWordFinder
 
         var stopwatch = Stopwatch.StartNew();
 
-        for (var i = 0; i < MaxThreads; i++)
+        var maxThreads = Environment.ProcessorCount - 1;
+        
+        for (var i = 0; i < maxThreads; i++)
         {
             _solvers.Push(new Solver(WordSet));
         }
 
         Parallel.ForEach(
             _wordList.Words,
-            new ParallelOptions { MaxDegreeOfParallelism = MaxThreads },
+            new ParallelOptions { MaxDegreeOfParallelism = maxThreads },
             startWord =>
             {
                 var rounds = 0;
@@ -100,15 +100,15 @@ public class StartWordFinder
                 
                 var builder = new StringBuilder();
 
-                builder.Append($"  &Cyan;{startWord}");
+                builder.Append($"  &Cyan;{startWord.ToUpper()}");
 
                 builder.Append($"  &Green;Mean Steps&White;: {(isLowestMean ? "&Green;" : "&Gray;")}{meanSteps:N4}");
 
                 builder.Append($"  &Yellow;Fails&White;: {(isLowestFails ? "&Yellow;" : "&Gray;")}{fails,5:N0}");
 
-                builder.Append($"  &Green;{_lowestMeanStepsWord}");
+                builder.Append($"  &Green;{_lowestMeanStepsWord.ToUpper()}");
 
-                builder.Append($"  &Yellow;{_lowestFailsWord}");
+                builder.Append($"  &Yellow;{_lowestFailsWord.ToUpper()}");
 
                 var remainingSeconds = (int) (stopwatch.Elapsed.TotalSeconds / _totalRounds * (_wordList.Words.Count - _totalRounds));
 
@@ -185,10 +185,6 @@ public class StartWordFinder
 
     private static (StepResult Result, string NextWord) PlayStep(Solver solver, string expected, string word)
     {
-        expected = expected.ToUpper();
-
-        word = word.ToUpper();
-        
         for (var i = 0; i < 5; i++)
         {
             if (expected[i] == word[i])
