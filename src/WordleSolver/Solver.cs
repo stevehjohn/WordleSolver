@@ -50,23 +50,28 @@ public class Solver
         _excluded.Clear();
     }
 
+    public string GetFirstMatch()
+    {
+        foreach (var word in _wordList.Words)
+        {
+            if (! CheckWord(word))
+            {
+                continue;
+            }
+
+            return word;
+        }
+
+        return null;
+    }
+
     public IEnumerable<string> GetMatches()
     {
         var matches = new List<string>();
 
         foreach (var word in _wordList.Words)
         {
-            if (! CheckCorrect(word))
-            {
-                continue;
-            }
-            
-            if (! CheckIncorrect(word))
-            {
-                continue;
-            }
-
-            if (! CheckExcluded(word))
+            if (! CheckWord(word))
             {
                 continue;
             }
@@ -76,7 +81,27 @@ public class Solver
         
         return matches.OrderByDescending(m => m.Distinct().Count()).ThenBy(m => m);
     }
-    
+
+    private bool CheckWord(string word)
+    {
+        if (! CheckCorrect(word))
+        {
+            return false;
+        }
+            
+        if (! CheckIncorrect(word))
+        {
+            return false;
+        }
+
+        if (! CheckExcluded(word))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private bool CheckCorrect(string word)
     {
         foreach (var tile in _correct)

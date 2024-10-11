@@ -188,9 +188,7 @@ public class Excerciser
             solver.AddExcluded(word[i]);
         }
 
-        var matches = solver.GetMatches();
-
-        var match = matches.FirstOrDefault();
+        var match = solver.GetFirstMatch();
 
         if (match == null)
         {
