@@ -75,7 +75,7 @@ public class Solver
             matches.Add(word);
         }
         
-        return matches.OrderByDescending(word => word.Word.CountDistinctCharacters()).ThenBy(word => word.Score).ThenBy(word => word.Word).Select(word => word.Word);
+        return matches.OrderByDescending(word => word.Word.CountDistinctCharacters()).ThenByDescending(word => word.Score).ThenBy(word => word.Word).Select(word => word.Word);
     }
     
     private bool CheckCorrect(WordListItem word)

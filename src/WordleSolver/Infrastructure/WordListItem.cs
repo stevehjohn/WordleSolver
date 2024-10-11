@@ -24,4 +24,9 @@ public class WordListItem
     {
         return (_mask & 1ul << (character - 'A')) > 0;
     }
+
+    public override string ToString()
+    {
+        return $"{Word}:{Score}";
+    }
 }

@@ -65,7 +65,7 @@ public class WordList
 
         var ordered = frequencies.OrderBy(f => f.Value);
 
-        var score = 0;
+        var score = 1;
         
         foreach (var item in ordered)
         {
@@ -83,7 +83,7 @@ public class WordList
                 score *= _frequencies[character];
             }
             
-            _words.Add(new WordListItem(word, score));
+            _words.Add(new WordListItem(word, score / 5));
         }
     }
 }
