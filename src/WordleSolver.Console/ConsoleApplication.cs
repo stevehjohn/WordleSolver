@@ -69,10 +69,10 @@ public class ConsoleApplication
                 return false;
             
             case "2":
+                OutputLine();
                 OutputLine("  &Cyan;Thank you for using Wordle Solver&White;. &Cyan;Bye&White;.");
                 OutputLine();
                 ForegroundColor = _previousColour;
-                Environment.Exit(0);
 
                 return true;
         }
