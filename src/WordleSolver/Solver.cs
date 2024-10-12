@@ -139,7 +139,7 @@ public class Solver
                 continue;
             }
             
-            Console.Write(" ");
+            Console.Write("-");
         }
 
         Console.Write("  ");
@@ -148,16 +148,16 @@ public class Solver
         
         foreach (var tile in _incorrect.DistinctBy(t => t.Character))
         {
-            Console.Write($"{tile.Character} ");
+            Console.Write($"{tile.Character}");
         }
 
-        Console.Write(" ");
+        Console.Write("  ");
 
         Console.ForegroundColor = ConsoleColor.Gray;
         
         foreach (var letter in _excluded.Distinct())
         {
-            Console.Write($"{letter} ");
+            Console.Write($"{letter}");
         }
 
         Console.ForegroundColor = colour;
