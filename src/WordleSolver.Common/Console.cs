@@ -1,5 +1,8 @@
-﻿namespace WordleSolver.Common;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace WordleSolver.Common;
+
+[ExcludeFromCodeCoverage]
 public static class Console
 {
     public static ConsoleColor ForegroundColor
