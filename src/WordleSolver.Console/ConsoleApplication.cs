@@ -47,12 +47,12 @@ public class ConsoleApplication
     {
         OutputLine();
         
-        OutputLine("  Select:");
+        OutputLine("  &Cyan;Select&White;:");
         
         OutputLine();
         
-        OutputLine("  1: Reset game.");
-        OutputLine("  2: Quit.");
+        OutputLine("  &Yellow;1&White;: &Cyan;Reset game&White;.");
+        OutputLine("  &Yellow;2&White;: &Cyan;Quit&White;.");
         
         OutputLine();
         
@@ -69,7 +69,7 @@ public class ConsoleApplication
                 return false;
             
             case "2":
-                OutputLine("  Thank you for using Wordle Solver. Bye.");
+                OutputLine("  &Cyan;Thank you for using Wordle Solver&White;. &Cyan;Bye&White;.");
                 OutputLine();
                 ForegroundColor = _previousColour;
                 Environment.Exit(0);
@@ -162,17 +162,32 @@ public class ConsoleApplication
 
         var result = _solver.GetMatches().Select(FormatSuggestion).Take(20).ToList();
 
-        Output("  ");
-        
-        for (var i = 0; i < 20; i++)
+        if (result.Count > 0)
         {
-            Output($"{result[i]}&White;, ");
-
-            if (i == 9)
+            Output("  ");
+        
+            for (var i = 0; i < 20; i++)
             {
-                OutputLine();
+                if (i >= result.Count)
+                {
+                    break;
+                }
+
+                Output($"{result[i]}&White;, ");
+
+                if (i == 9)
+                {
+                    OutputLine();
+                
+                    Output("  ");
+                }
             }
         }
+        else
+        {
+            OutputLine("  &Magenta;None&White;.");
+        }
+
 
         return result.Count > 1;
     }
