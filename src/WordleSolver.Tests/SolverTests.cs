@@ -191,6 +191,8 @@ public class SolverTests
         _solver.AddExcluded('y');
         _solver.AddExcluded('z');
 
+        Assert.Equal(1, _solver.Incorrect.Count(t => t.Character == 'r' && t.Position == 2));
+        
         Assert.Contains('x', _solver.Excluded);
         Assert.Contains('y', _solver.Excluded);
         Assert.Contains('z', _solver.Excluded);
