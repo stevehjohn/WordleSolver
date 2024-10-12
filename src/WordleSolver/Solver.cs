@@ -20,7 +20,7 @@ public class Solver
 
     public IReadOnlyList<Tile> Correct => _correct;
 
-    public IReadOnlyList<Tile> Incorrect => _correct;
+    public IReadOnlyList<Tile> Incorrect => _incorrect;
 
     public IReadOnlyList<char> Excluded => _excluded;
     

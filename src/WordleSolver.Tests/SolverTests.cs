@@ -176,4 +176,23 @@ public class SolverTests
         
         Assert.Equal("their", string.Join(',', result));
     }
+
+    [Fact]
+    public void SolverReturnsCorrectState()
+    {
+        _solver.Reset();
+        
+        _solver.SetCorrect('a', 0);
+        _solver.SetCorrect('b', 1);
+        
+        _solver.AddIncorrect('r', 2);
+        
+        _solver.AddExcluded('x');
+        _solver.AddExcluded('y');
+        _solver.AddExcluded('z');
+
+        Assert.Contains('x', _solver.Excluded);
+        Assert.Contains('y', _solver.Excluded);
+        Assert.Contains('z', _solver.Excluded);
+    }
 }

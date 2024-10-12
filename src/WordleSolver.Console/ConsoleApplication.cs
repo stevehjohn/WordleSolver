@@ -212,7 +212,7 @@ public class ConsoleApplication
                 continue;
             }
 
-            if (_solver.Incorrect.Any(t => t.Character == word[i] && t.Position != i))
+            if (_solver.Incorrect.Any(t => t.Character == word[i]))
             {
                 builder.Append($"&Yellow;{word[i]}");
                 
