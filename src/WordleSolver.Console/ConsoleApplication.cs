@@ -173,7 +173,12 @@ public class ConsoleApplication
                     break;
                 }
 
-                Output($"{result[i]}&White;, ");
+                Output(result[i]);
+
+                if (i < result.Count - 1)
+                {
+                    Output("&White;,");
+                }
 
                 if (i == 9)
                 {
@@ -182,6 +187,8 @@ public class ConsoleApplication
                     Output("  ");
                 }
             }
+            
+            OutputLine();
         }
         else
         {
