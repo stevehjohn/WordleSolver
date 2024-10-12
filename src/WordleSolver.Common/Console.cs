@@ -17,6 +17,18 @@ public static class Console
             return;
         }
 
+        Output(text);
+        
+        System.Console.WriteLine();
+    }
+    
+    public static void Output(string text = null)
+    {
+        if (text == null)
+        {
+            return;
+        }
+
         for (var i = 0; i < text.Length; i++)
         {
             if (text[i] == '&')
@@ -38,7 +50,15 @@ public static class Console
 
             System.Console.Write(text[i]);
         }
-        
-        System.Console.WriteLine();
+    }
+
+    public static void Clear()
+    {
+        System.Console.Clear();
+    }
+
+    public static string ReadLine()
+    {
+        return System.Console.ReadLine() ?? string.Empty;
     }
 }

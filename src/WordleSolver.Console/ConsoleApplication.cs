@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using WordleSolver.Infrastructure;
-using static System.Console;
+using static WordleSolver.Common.Console;
 
 namespace WordleSolver.Console;
 
@@ -26,28 +26,36 @@ public class ConsoleApplication
                     break;
                 }
                 
-                WriteLine();
+                OutputLine();
                 
-                Write("  ");
+                Output("  ");
 
                 _solver.DumpState();
                 
-                WriteLine();
+                OutputLine();
             }
-            
-            Menu();
+
+            if (Menu())
+            {
+                break;
+            }
         }
-        // ReSharper disable once FunctionNeverReturns
     }
 
-    private void Menu()
+    private bool Menu()
     {
-        OutputLine("Select:");
+        OutputLine();
         
-        OutputLine("1: Reset game.", false);
-        OutputLine("2: Quit.", false);
+        OutputLine("  Select:");
         
-        Output("> ");
+        OutputLine();
+        
+        OutputLine("  1: Reset game.");
+        OutputLine("  2: Quit.");
+        
+        OutputLine();
+        
+        Output("  > ");
 
         var input = ReadLine();
 
@@ -56,25 +64,30 @@ public class ConsoleApplication
             case "1":
                 Clear();
                 _solver.Reset();
-                break;
+
+                return false;
             
             case "2":
-                OutputLine("Thank you for using Wordle Solver. Bye.");
+                OutputLine("  Thank you for using Wordle Solver. Bye.");
                 OutputLine();
                 ForegroundColor = _previousColour;
                 Environment.Exit(0);
-                
-                break;
+
+                return true;
         }
+
+        return false;
     }
 
     private bool ExecuteRound()
     {
-        OutputLine("Enter correctly placed letters:");
+        OutputLine();
         
-        Output("> ");
+        OutputLine("  Enter correctly placed letters:");
+        
+        Output("  > ");
 
-        var input = ReadLine() ?? string.Empty;
+        var input = ReadLine();
 
         if (input == "*")
         {
@@ -91,11 +104,11 @@ public class ConsoleApplication
             _solver.SetCorrect(input[i], i);
         }
 
-        OutputLine("Enter incorrectly placed letters:");
+        OutputLine("  Enter incorrectly placed letters:");
         
-        Output("> ");
+        Output("  > ");
 
-        input = ReadLine() ?? string.Empty;
+        input = ReadLine();
 
         if (input == "*")
         {
@@ -112,11 +125,11 @@ public class ConsoleApplication
             _solver.AddIncorrect(input[i], i);
         }
 
-        OutputLine("Enter any excluded letters:");
+        OutputLine("  Enter any excluded letters:");
         
-        Output("> ");
+        Output("  > ");
 
-        input = ReadLine() ?? string.Empty;
+        input = ReadLine();
 
         if (input == "*")
         {
@@ -132,11 +145,11 @@ public class ConsoleApplication
 
         OutputLine();
         
-        OutputLine("Suggestions:");
+        OutputLine("  Suggestions:");
 
         var result = _solver.GetMatches().Take(10).ToList();
         
-        OutputLine($"{string.Join(", ", result)}");
+        OutputLine($"  {string.Join(", ", result)}");
 
         return result.Count > 1;
     }
@@ -145,42 +158,30 @@ public class ConsoleApplication
     {
         ForegroundColor = ConsoleColor.Cyan;
         
-        OutputLine("Welcome to Wordle Solver!");
+        OutputLine();
         
-        OutputLine("When entering correctly or incorrectly placed letters,");
+        OutputLine("  Welcome to Wordle Solver!");
         
-        OutputLine("separate with hyphens to indicate the position.", false);
+        OutputLine();
+        
+        OutputLine("  When entering correctly or incorrectly placed letters,");
+        
+        OutputLine("  separate with hyphens to indicate the position.");
 
-        OutputLine("E.g. at the prompt:");
+        OutputLine();
         
-        OutputLine("> -A--E");
-        
-        OutputLine("Excluded letters are not position sensitive.");
-        
-        OutputLine("Enter * for options.");
-        
-        OutputLine(string.Empty, false);
-    }
+        OutputLine("  E.g. at the prompt:");
 
-    private static void OutputLine(string text = null, bool newLineBefore = true)
-    {
-        if (newLineBefore)
-        {
-            WriteLine();
-        }
+        OutputLine();
         
-        if (string.IsNullOrWhiteSpace(text))
-        {
-            WriteLine();
-        }
-        else
-        {
-            WriteLine($"  {text}");
-        }
-    }
-
-    private static void Output(string text)
-    {
-        Write($"  {text}");
+        OutputLine("  > -A--E");
+        
+        OutputLine();
+        
+        OutputLine("  Excluded letters are not position sensitive.");
+        
+        OutputLine();
+        
+        OutputLine("  Enter * for options.");
     }
 }
