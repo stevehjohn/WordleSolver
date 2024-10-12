@@ -7,7 +7,7 @@ namespace WordleSolver.Console;
 [ExcludeFromCodeCoverage]
 public class ConsoleApplication
 {
-    private readonly Solver _solver = new(WordSet.Basic);
+    private readonly Solver _solver = new(WordSet.OriginalAllowedAnswers);
 
     private ConsoleColor _previousColour;
     
