@@ -35,6 +35,8 @@ public class Solver
 
     public void SetCorrect(char letter, int position)
     {
+        _correct.RemoveAll(t => t.Position == position);
+        
         _correct.Add(new Tile(char.ToLower(letter), position));
     }
 
