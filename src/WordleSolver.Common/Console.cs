@@ -45,6 +45,11 @@ public static class Console
                     }
 
                     i += colour.Length + 2;
+
+                    if (i >= text.Length)
+                    {
+                        break;
+                    }
                 }
             }
 

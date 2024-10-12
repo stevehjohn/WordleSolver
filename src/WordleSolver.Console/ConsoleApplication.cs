@@ -83,9 +83,11 @@ public class ConsoleApplication
     {
         OutputLine();
         
-        OutputLine("  Enter correctly placed letters:");
+        OutputLine("  &Cyan;Enter correctly placed letters&White;:");
         
-        Output("  > ");
+        OutputLine();
+
+        Output("  &Yellow;> &Green;");
 
         var input = ReadLine();
 
@@ -104,9 +106,13 @@ public class ConsoleApplication
             _solver.SetCorrect(input[i], i);
         }
 
-        OutputLine("  Enter incorrectly placed letters:");
+        OutputLine();
         
-        Output("  > ");
+        OutputLine("  &Cyan;Enter incorrectly placed letters&White;:");
+        
+        OutputLine();
+
+        Output("  &Yellow;> ");
 
         input = ReadLine();
 
@@ -125,9 +131,13 @@ public class ConsoleApplication
             _solver.AddIncorrect(input[i], i);
         }
 
-        OutputLine("  Enter any excluded letters:");
+        OutputLine();
+
+        OutputLine("  &Cyan;Enter any excluded letters&White;:");
         
-        Output("  > ");
+        OutputLine();
+
+        Output("  &Yellow;> &Gray;");
 
         input = ReadLine();
 
@@ -145,11 +155,13 @@ public class ConsoleApplication
 
         OutputLine();
         
-        OutputLine("  Suggestions:");
+        OutputLine("  &Cyan;Suggestions&White;:");
+
+        OutputLine();
 
         var result = _solver.GetMatches().Take(10).ToList();
         
-        OutputLine($"  {string.Join(", ", result)}");
+        OutputLine($"  {string.Join("&White;, ", result)}");
 
         return result.Count > 1;
     }
@@ -160,28 +172,28 @@ public class ConsoleApplication
         
         OutputLine();
         
-        OutputLine("  Welcome to Wordle Solver!");
+        OutputLine("  &Cyan;Welcome to Wordle Solver&White;!");
         
         OutputLine();
         
-        OutputLine("  When entering correctly or incorrectly placed letters,");
+        OutputLine("  &Cyan;When entering correctly or incorrectly placed letters&White;,");
         
-        OutputLine("  separate with hyphens to indicate the position.");
+        OutputLine("  &Cyan;separate with hyphens to indicate the position&White;.");
 
         OutputLine();
         
-        OutputLine("  E.g. at the prompt:");
+        OutputLine("  &Cyan;E&White;.&Cyan;g&White;.&Cyan; at the prompt&White;:");
 
         OutputLine();
         
-        OutputLine("  > -A--E");
+        OutputLine("  &Yellow;> &Green;-A--E");
         
         OutputLine();
         
-        OutputLine("  Excluded letters are not position sensitive.");
+        OutputLine("  &Cyan;Excluded letters are not position sensitive&White;.");
         
         OutputLine();
         
-        OutputLine("  Enter * for options.");
+        OutputLine("  &Cyan;Enter &White;*&Cyan; for options&White;.");
     }
 }
