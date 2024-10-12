@@ -17,6 +17,12 @@ public class Solver
     private readonly List<char> _excluded = [];
 
     private readonly int _length;
+
+    public IReadOnlyList<Tile> Correct => _correct;
+
+    public IReadOnlyList<Tile> Incorrect => _correct;
+
+    public IReadOnlyList<char> Excluded => _excluded;
     
     public Solver(WordSet wordSet, int length = 5)
     {

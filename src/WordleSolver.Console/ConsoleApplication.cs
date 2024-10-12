@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using WordleSolver.Infrastructure;
 using static WordleSolver.Common.Console;
 
@@ -159,11 +160,47 @@ public class ConsoleApplication
 
         OutputLine();
 
-        var result = _solver.GetMatches().Take(10).ToList();
+        var result = _solver.GetMatches().Select(FormatSuggestion).Take(20).ToList();
+
+        Output("  ");
         
-        OutputLine($"  {string.Join("&White;, ", result)}");
+        for (var i = 0; i < 20; i++)
+        {
+            Output($"{result[i]}&White;, ");
+
+            if (i == 9)
+            {
+                OutputLine();
+            }
+        }
 
         return result.Count > 1;
+    }
+
+    private string FormatSuggestion(string word)
+    {
+        var builder = new StringBuilder();
+        
+        for (var i = 0; i < word.Length; i++)
+        {
+            if (_solver.Correct.Any(t => t.Character == word[i] && t.Position == i))
+            {
+                builder.Append($"&Green;{word[i]}");
+                
+                continue;
+            }
+
+            if (_solver.Incorrect.Any(t => t.Character == word[i] && t.Position != i))
+            {
+                builder.Append($"&Yellow;{word[i]}");
+                
+                continue;
+            }
+
+            builder.Append($"&Gray;{word[i]}");
+        }
+
+        return builder.ToString();
     }
 
     private static void ShowWelcome()
